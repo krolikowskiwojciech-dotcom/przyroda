@@ -1,0 +1,46 @@
+{
+  "id": "przyr-dz1-l08-podsumowanie-dzialu",
+  "zrodlo": "lekcje-audio",
+  "dla": [
+    "aniela"
+  ],
+  "tytul": "Podsumowanie i sprawdź wiedzę",
+  "dzial": "I",
+  "dzialTytul": null,
+  "lekcja": null,
+  "typ": "podsumowanie",
+  "strony": "47–52",
+  "dodano": "2026-10-24",
+  "termin": null,
+  "ikona": "lisc",
+  "kolor": "mietowy",
+  "ocena": true,
+  "bloki": [
+    {
+      "id": "pytania",
+      "tytul": "Pytania z nagrania",
+      "polecenie": "Odpowiedz w myślach albo na głos, potem sprawdź.",
+      "zadania": [
+        {
+          "kind": "otwarte",
+          "e": "Sztorm: o czym świadczą fale uderzające o brzeg?",
+          "a": "Woda to nieożywiony składnik przyrody, w ruch wprawia ją wiatr.",
+          "zrodlo": "s. 50, zad. 2; Podsumowanie pkt 1"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Który narząd zmysłu jest nie tylko na głowie?",
+          "a": "Skóra — narząd dotyku (tabela w pkt 6, s. 48).",
+          "zrodlo": "s. 51, zad. 4; Podsumowanie pkt 6 (s. 48)"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Lena odwraca doniczkę — obserwacja czy doświadczenie?",
+          "a": "Doświadczenie — Lena coś zmieniła (odwróciła doniczkę), postawiła hipotezę i zapisuje wyniki.",
+          "blad": "„obserwacja” — druga możliwość podana w samym zadaniu; w obserwacji nic nie zmieniamy (pkt 5, s. 48)",
+          "zrodlo": "s. 52, zad. 5; Podsumowanie pkt 5 (s. 48)"
+        }
+      ]
+    }
+  ]
+}

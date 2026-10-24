@@ -1,0 +1,595 @@
+/* Wygląd rodziny przedmiotów (jak Biologia i Lingoza): kremowe tło, pastelowe karty 3D, Libre Baskerville + Jost, bez kursywy.
+   Akcent przedmiotu: kolor --akcent (jak tło ikony aplikacji) i białe znaki --znaki na kartach — sekcja „akcent przedmiotu” niżej. */
+@font-face { font-family: 'Jost'; src: url('fonts/Jost.ttf') format('truetype'); font-weight: 100 900; font-display: swap; }
+@font-face { font-family: 'Libre Baskerville'; src: url('fonts/LibreBaskerville.ttf') format('truetype'); font-weight: 400 700; font-display: swap; }
+
+:root {
+  --tlo: #F5F2EA; --karta: #FCFAF5; --tusz: #1D1C22; --szary: #77736B; --linia: #E5E0D4; --oliwka: #A0986A;
+  --lila: #C9C5F7; --rozowy: #F6C7EE; --zolty: #F4EE90; --mietowy: #C5EFDC; --zielony: #2F9B5A; --brzoskwinia: #F9D7AF;
+  --niebieski: #C0E4F5; --krem: #F1E7BF;
+  --ok: #2F9B5A; --ok-tlo: #DDF4E6; --zle: #D6455D; --zle-tlo: #FBE1E5;
+  --r: 22px; --cien: 0 1px 0 rgba(29,28,34,.04), 0 10px 26px -14px rgba(29,28,34,.28);
+  --dol: env(safe-area-inset-bottom, 0px); --gora: env(safe-area-inset-top, 0px);
+  --kropki: radial-gradient(rgba(29,28,34,.07) 1.2px, transparent 1.6px);
+  color-scheme: light;
+}
+* { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--tlo); color: var(--tusz); font: 17px/1.45 Jost, -apple-system, system-ui, sans-serif; min-height: 100dvh; touch-action: manipulation; }
+button, input, select, textarea { font: inherit; color: inherit; }
+a { color: inherit; text-decoration: none; }
+.serif { font-family: 'Libre Baskerville', Baskerville, Georgia, serif; font-weight: 400; letter-spacing: -.015em; }
+em, i { font-style: normal; }
+.maly, small { font-size: 13px; color: var(--szary); }
+.ladowanie { text-align: center; padding: 40vh 16px; color: var(--szary); }
+
+.ekran { max-width: 620px; margin: 0 auto; padding: calc(var(--gora) + 16px) 16px calc(var(--dol) + 40px); }
+.logo { font-size: 24px; text-align: center; padding: 10px 0; }
+.logo em, .tytul em, .profile-wybor h1 em { color: var(--oliwka); }
+
+/* ikony */
+.ik { display: inline-grid; place-items: center; line-height: 0; }
+.ik svg { width: 20px; height: 20px; }
+.btn .ik svg, .chip .ik svg { width: 19px; height: 19px; }
+
+/* nagłówek ekranu głównego */
+.naglowek { display: flex; align-items: center; gap: 10px; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; background: var(--rozowy); display: grid; place-items: center; font-size: 20px; }
+.naglowek-txt { flex: 1; display: flex; flex-direction: column; line-height: 1.15; }
+.naglowek-txt b { font-weight: 500; }
+.ikona-btn { width: 40px; height: 40px; border-radius: 50%; border: 1px solid var(--linia); background: var(--karta); display: grid; place-items: center; cursor: pointer; flex: none; }
+.tytul { font-size: clamp(34px, 9.6vw, 46px); line-height: 1.08; margin: 18px 0 16px; }
+.tytul-wiersz { display: flex; align-items: center; justify-content: space-between; gap: 6px; }
+.tytul-wiersz .tytul { flex: 1; min-width: 0; }
+.podtytul { color: var(--szary); margin: -4px 0 16px; }
+.sekcja { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--szary); font-weight: 500; margin: 22px 2px 10px; }
+
+
+/* kolory kart (jak w Lingozie) */
+.kolor-lila { background-color: var(--lila); --tlo-karty: var(--lila); --brzeg: #A7A0EA; }
+.kolor-rozowy { background-color: var(--rozowy); --tlo-karty: var(--rozowy); --brzeg: #DFA2D3; }
+.kolor-zolty { background-color: var(--zolty); --tlo-karty: var(--zolty); --brzeg: #D6CD5C; }
+.kolor-mietowy { background-color: var(--mietowy); --tlo-karty: var(--mietowy); --brzeg: #98D6BA; }
+.kolor-brzoskwinia { background-color: var(--brzoskwinia); --tlo-karty: var(--brzoskwinia); --brzeg: #E5B57B; }
+.kolor-niebieski { background-color: var(--niebieski); --tlo-karty: var(--niebieski); --brzeg: #92C6E0; }
+.kolor-krem { background-color: var(--krem); --tlo-karty: var(--krem); --brzeg: #D8CA92; }
+
+/* bąbel z ikoną biologiczną — odpowiednik ilustracji działu w Lingozie */
+.kp-emoji, .profil-avatar, .blok-nr { flex: none; display: grid; place-items: center; border-radius: 50%;
+  background-image: radial-gradient(circle at 35% 28%, rgba(255,255,255,.98), rgba(255,255,255,.62) 55%, rgba(255,255,255,.34) 100%);
+  box-shadow: inset 0 -3px 6px rgba(29,28,34,.08), inset 0 2px 1px rgba(255,255,255,.9), 0 8px 14px -8px rgba(29,28,34,.45); }
+.kp-emoji { width: 54px; height: 54px; font-size: 27px; line-height: 1; }
+.babel-bio { color: var(--tusz); }
+.babel-bio .ik { width: 54%; height: 54%; }
+.babel-bio .ik svg { width: 100%; height: 100%; }
+
+/* karty zestawów */
+.lista-pakietow { display: flex; flex-direction: column; gap: 14px; }
+.karta-pakietu { position: relative; display: block; padding: 16px 18px; border-radius: var(--r);
+  background-image: var(--znaki), linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 45%);
+  background-repeat: no-repeat; background-position: right -14px top -6px, 0 0; background-size: 56% auto, auto;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,.75), 0 5px 0 var(--brzeg, rgba(0,0,0,.12)), 0 18px 24px -18px rgba(29,28,34,.5);
+  transition: transform .15s, box-shadow .15s; }
+.karta-pakietu:active { transform: translateY(4px); box-shadow: inset 0 1.5px 0 rgba(255,255,255,.75), 0 1px 0 var(--brzeg, rgba(0,0,0,.12)), 0 8px 14px -12px rgba(29,28,34,.5); }
+.kp-gora { display: flex; gap: 14px; align-items: center; }
+.kp-txt { display: flex; flex-direction: column; align-items: flex-start; gap: 4px; min-width: 0; }
+.kp-tytul { font-size: 21px; line-height: 1.18; }
+.kp-opis { font-size: 14px; opacity: .8; margin: 10px 0 0; max-width: 88%; }
+.kp-dol { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 10px; }
+.kp-dol small { color: inherit; opacity: .75; }
+.termin { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; background: rgba(255,255,255,.62); border-radius: 999px; padding: 2px 10px; font-weight: 500; }
+.termin.pilne { background: var(--tusz); color: #fff; }
+
+/* nagłówek zestawu */
+.naglowek-dzialu { position: relative; border-radius: var(--r); padding: 22px 20px 20px; margin-bottom: 16px;
+  background-image: var(--znaki), linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 45%);
+  background-repeat: no-repeat; background-position: right -10px top 0, 0 0; background-size: 52% auto, auto;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,.75), 0 6px 0 var(--brzeg, rgba(0,0,0,.12)), 0 22px 30px -20px rgba(29,28,34,.5); }
+.naglowek-dzialu h1 { font-size: 30px; line-height: 1.12; margin: 6px 0 8px; padding-right: 70px; }
+.naglowek-dzialu p { margin: 0; opacity: .85; }
+.nagl-znak { position: absolute; top: 14px; right: 16px; width: 64px; height: 64px; font-size: 32px; }
+.kat-etykieta { text-transform: uppercase; letter-spacing: .08em; font-size: 11px; color: inherit; opacity: .7; }
+.np-staty { display: flex; flex-wrap: wrap; gap: 6px 14px; margin-top: 12px; font-size: 14px; }
+.np-staty b { font-size: 18px; font-weight: 500; }
+
+/* duży przycisk */
+.cta { width: 100%; display: flex; align-items: center; gap: 12px; padding: 18px 20px; border: 0; border-radius: var(--r); background: var(--tusz); color: #fff; text-align: left; cursor: pointer; box-shadow: var(--cien); margin-bottom: 6px; }
+.cta-txt { flex: 1; display: flex; flex-direction: column; }
+.cta-txt b { font-size: 20px; font-weight: 500; }
+.cta-txt small { color: #CFCBC2; }
+.cta-strzalka { width: 42px; height: 42px; border-radius: 50%; background: var(--zolty); color: var(--tusz); display: grid; place-items: center; }
+.cta:active { transform: scale(.98); }
+
+/* lista bloków / wyników */
+.lista-pozycji { list-style: none; padding: 0; margin: 0; background: var(--karta); border-radius: 18px; border: 1px solid var(--linia); text-align: left; width: 100%; }
+.pozycja { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid var(--linia); }
+.pozycja:last-child { border-bottom: 0; }
+.pozycja.klik { cursor: pointer; transition: background-color .12s; }
+.pozycja.klik:active { background: rgba(255,255,255,.95); }
+.blok-nr { width: 38px; height: 38px; font-size: 17px; }
+.poz-txt { flex: 1; display: flex; flex-direction: column; min-width: 0; }
+.poz-txt b { font-weight: 500; }
+.poz-status { font-size: 12px; padding: 3px 10px; border-radius: 10px; background: var(--linia); color: var(--szary); white-space: nowrap; font-variant-numeric: tabular-nums; }
+.poz-status.uczy { background: var(--zolty); color: var(--tusz); }
+.poz-status.zna { background: rgba(255,255,255,.7); color: var(--tusz); }
+.poz-status.opan { background: var(--zielony); color: #fff; }
+.bledy .pozycja { border-left: 3px solid var(--zle); }
+.bledy small { display: block; margin-top: 2px; }
+.bledy .dobra { color: var(--ok); font-weight: 500; }
+
+/* przyciski */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 50px; padding: 12px 20px; border-radius: 16px; border: 0; cursor: pointer; font-size: 16px; font-weight: 500; text-align: center; }
+.btn:disabled { opacity: .45; cursor: default; }
+.btn.glowny { background: var(--tusz); color: #fff; }
+.btn.jasny { background: var(--karta); border: 1px solid var(--linia); }
+.btn.zielony { background: var(--ok); color: #fff; }
+.btn.czerwony { background: var(--zle); color: #fff; }
+.btn.szeroki { width: 100%; }
+.btn:active:not(:disabled) { transform: scale(.98); }
+.przyciski { display: flex; gap: 10px; flex-wrap: wrap; margin: 4px 0 8px; }
+.przyciski .btn { flex: 1; min-width: 130px; }
+.przyciski.kolumna { flex-direction: column; width: 100%; margin-top: 18px; }
+.chip { display: inline-flex; align-items: center; gap: 4px; border: 1px solid var(--linia); background: var(--karta); border-radius: 999px; padding: 6px 14px; cursor: pointer; font-size: 14px; }
+.chip.akt { background: var(--tusz); color: #fff; border-color: var(--tusz); }
+
+/* wybór profilu — kafelki „rzucone” nierówno, bąbel z literą wystaje ponad kafelek */
+.profile-wybor h1 { font-size: 38px; line-height: 1.1; text-align: center; margin: 16px 0 6px; }
+.profile-siatka { display: grid; grid-template-columns: 1fr 1fr; gap: 26px 14px; padding: 44px 4px 30px; align-items: start; }
+.profil-kafel { position: relative; border: 0; display: flex; flex-direction: column; align-items: center; gap: 4px; cursor: pointer;
+  padding: 62px 12px 18px; transform: rotate(var(--obr, 0deg));
+  background-image: var(--znaki), linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 45%);
+  background-repeat: no-repeat; background-size: 66% auto, auto; background-position: right -22px top -4px, 0 0;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,.75), 0 5px 0 var(--brzeg, rgba(0,0,0,.12)), 0 18px 24px -18px rgba(29,28,34,.5);
+  transition: transform .15s; }
+.profil-kafel:nth-child(1) { --obr: -3deg; border-radius: 34px 24px 28px 14px; }
+.profil-kafel:nth-child(2) { --obr: 2.4deg; margin-top: 34px; border-radius: 24px 34px 14px 30px; }
+.profil-kafel:active { transform: rotate(0deg) scale(.96); }
+.profil-avatar { position: absolute; top: -34px; left: 50%; width: 84px; height: 84px; font-size: 40px; background-color: var(--karta);
+  transform: translateX(-50%) rotate(calc(var(--obr, 0deg) * -2)); }
+.profil-kafel b { font-family: 'Libre Baskerville', Georgia, serif; font-weight: 400; font-size: 21px; letter-spacing: -.01em; }
+.profil-kafel small { background: rgba(255,255,255,.62); border-radius: 999px; padding: 2px 11px; margin-top: 4px; color: rgba(29,28,34,.7); }
+
+/* ---------------- lekcja (ćwiczenie) ---------------- */
+body.w-lekcji { overflow: hidden; }
+.lekcja { position: fixed; inset: 0; z-index: 50; display: flex; flex-direction: column; padding-top: var(--gora);
+  background-color: var(--tlo-karty, var(--tlo));
+  /* akcent: kropki jak na szkiełku preparatu, ledwo widoczne */
+  background-image: linear-gradient(180deg, rgba(255,255,255,.4), rgba(255,255,255,0) 45%), var(--kropki);
+  background-size: auto, 22px 22px; }
+.lekcja-gora { display: flex; align-items: center; gap: 12px; padding: 12px 16px 6px; max-width: 620px; width: 100%; margin: 0 auto; }
+.postep { flex: 1; height: 14px; border-radius: 8px; background: rgba(255,255,255,.55); overflow: hidden; }
+.postep-wew { height: 100%; border-radius: 8px; background: linear-gradient(90deg, #8AD9A8, var(--ok)); transition: width .4s; }
+.licznik { font-size: 13px; color: rgba(29,28,34,.6); font-variant-numeric: tabular-nums; min-width: 28px; text-align: right; }
+.lekcja-tytul { max-width: 620px; width: 100%; margin: 0 auto; padding: 0 18px; font-size: 18px; opacity: .75; }
+.cw-pole { flex: 1; min-height: 0; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 8px 16px 20px; max-width: 620px; width: 100%; margin: 0 auto; }
+.cw-pole > * { animation: pojaw .28s ease both; }
+@keyframes pojaw { from { opacity: 0; transform: translateY(8px); } }
+.cw-polecenie { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 13px; text-transform: uppercase; letter-spacing: .06em; color: rgba(29,28,34,.65); margin: 6px 2px 12px; font-weight: 500; }
+.cw-nr { font-variant-numeric: tabular-nums; letter-spacing: 0; white-space: nowrap; flex: none; }
+
+/* karta z działaniem — biała, z brzegiem 3D jak krok gramatyki w Lingozie */
+.zadanie-karta { background: rgba(255,255,255,.9); border-radius: 30px; padding: 22px 14px 16px; min-height: 24dvh; display: flex; flex-direction: column; justify-content: center;
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,.9), 0 6px 0 var(--brzeg, rgba(0,0,0,.12)), 0 22px 30px -20px rgba(29,28,34,.45);
+  transition: background-color .2s; }
+.zadanie-karta.ok { background: var(--ok-tlo); }
+.zadanie-karta.zle { background: var(--zle-tlo); }
+.tresc { font-size: 22px; line-height: 1.4; margin: 0 0 10px; }
+.etykieta { font-size: 17px; margin: 0 0 6px; }
+.info { min-height: 22px; text-align: center; font-weight: 500; margin: 6px 0 0; font-size: 15px; }
+.info.podpowiedz { color: var(--zle); }
+
+/* stopka lekcji: klawiatura + przycisk; po odpowiedzi zielona albo czerwona */
+.stopka { flex: none; padding: 12px 16px calc(var(--dol) + 14px); background: var(--tlo-karty, var(--tlo)); border-top: 1px solid rgba(29,28,34,.08); display: flex; flex-direction: column; gap: 10px; }
+.stopka > * { max-width: 588px; width: 100%; margin: 0 auto; }
+.stopka.ok { background: var(--ok-tlo); border-color: transparent; min-height: 120px; justify-content: center; }
+.stopka.zle { background: var(--zle-tlo); border-color: transparent; }
+.stopka-tytul { display: flex; align-items: center; gap: 6px; font-size: 20px; font-weight: 600; }
+.stopka.ok .stopka-tytul { color: var(--ok); }
+.stopka.zle .stopka-tytul { color: var(--zle); font-size: 18px; }
+.stopka-tytul .ik svg { width: 24px; height: 24px; }
+.seria { margin-left: auto; font-size: 13px; font-weight: 500; background: #fff; border-radius: 999px; padding: 3px 10px; color: var(--ok); }
+.stopka .przyciski { margin: 0; }
+
+.opcje { display: flex; flex-direction: column; gap: 10px; }
+.opcja { flex: 1; display: flex; align-items: center; justify-content: center; gap: 12px; padding: 14px 16px; border-radius: 18px; border: 2px solid transparent; background: var(--karta); cursor: pointer; font-size: 19px;
+  box-shadow: 0 6px 0 var(--brzeg, #D9D2C2), 0 12px 16px -12px rgba(29,28,34,.4); margin-bottom: 6px; transition: transform .06s, box-shadow .06s; }
+.opcja:active, .opcja.wcisniety { transform: translateY(5px); box-shadow: 0 1px 0 var(--brzeg, #D9D2C2); }
+.opcja.ok { border-color: var(--ok); background: var(--ok-tlo); }
+.opcja.zle { border-color: var(--zle); background: var(--zle-tlo); }
+
+/* wstęp do bloku — jak lekcja gramatyki w Lingozie */
+.gram-lekcja { display: flex; flex-direction: column; gap: 10px; padding-top: 6px; }
+.wstep-tytul { font-size: 32px; line-height: 1.12; margin: 0; }
+.wstep-polecenie { margin: 0 0 6px; font-size: 18px; }
+.gram-krok { position: relative; border-radius: 28px; padding: 20px 18px 18px; background: rgba(255,255,255,.88);
+  box-shadow: inset 0 1.5px 0 rgba(255,255,255,.9), 0 6px 0 var(--brzeg, rgba(0,0,0,.12)), 0 22px 30px -20px rgba(29,28,34,.45); }
+.gram-klucz { display: inline-block; font-size: 22px; line-height: 1.1; background: var(--tlo-karty); border-radius: 14px; padding: 6px 14px 8px; margin-bottom: 12px; }
+.gram-tekst { font-size: 18px; line-height: 1.45; margin: 0 0 10px; }
+.gram-tekst b { background: var(--zolty); border-radius: 6px; padding: 0 4px; font-weight: 500; }
+.gram-przyklad { display: flex; gap: 12px; align-items: center; background: var(--tlo); border-radius: 18px; padding: 12px 14px; margin-top: 6px; }
+.gp-znak { width: 40px; height: 40px; flex: none; border-radius: 50%; background: var(--zolty); display: grid; place-items: center; font-size: 22px; }
+.gp-linie { font-size: 19px; line-height: 1.5; font-variant-numeric: tabular-nums; }
+
+/* poprawka po błędzie */
+.poprawka { margin-top: 16px; background: rgba(255,255,255,.92); border-radius: 24px; padding: 16px; box-shadow: 0 5px 0 rgba(29,28,34,.07), 0 18px 24px -18px rgba(29,28,34,.4); }
+.twoja { margin: 0 0 10px; color: var(--zle); font-weight: 500; }
+.twoja s { text-decoration-thickness: 2px; }
+.uwaga { font-size: 15px; background: var(--krem); border-radius: 12px; padding: 8px 12px; margin: 0 0 10px; }
+.ramka-poprawna { border-radius: 18px; padding: 10px 14px 12px; background: var(--ok-tlo); color: var(--ok); }
+.rownanie { font-size: clamp(27px, 8.5vw, 40px); font-weight: 500; font-variant-numeric: tabular-nums; text-align: center; color: var(--tusz); }
+.poprawka .sekcja { margin-top: 16px; }
+.kroki { margin: 0; padding-left: 1.4em; font-size: 17px; }
+.kroki li { margin-bottom: 7px; font-variant-numeric: tabular-nums; }
+.kroki li::marker { color: var(--oliwka); font-weight: 600; }
+.wraca { display: flex; align-items: center; gap: 6px; font-size: 14px; color: var(--szary); margin: 12px 0 0; }
+.wraca .ik svg { width: 16px; height: 16px; }
+
+/* koniec bloku i podsumowanie */
+.podsum { text-align: center; display: flex; flex-direction: column; gap: 10px; align-items: center; padding-top: 18px; }
+.podsum h2 { font-size: 28px; line-height: 1.15; margin: 0; }
+.wynik-duzy { font-size: 64px; line-height: 1; font-variant-numeric: tabular-nums; }
+.podsum-kafle { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; width: 100%; margin-top: 4px; }
+.kafel { border-radius: 18px; padding: 12px; display: flex; flex-direction: column; gap: 2px; text-align: left; box-shadow: 0 4px 0 rgba(29,28,34,.07); }
+.kafel b { font-size: 26px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.kafel small { color: rgba(29,28,34,.65); }
+.kafel.bialy { background: rgba(255,255,255,.8); }
+.ocena-szkolna { display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,.85); border-radius: 22px; padding: 10px 18px 10px 10px; box-shadow: 0 5px 0 var(--brzeg, rgba(0,0,0,.1)); }
+.ocena-cyfra { width: 62px; height: 62px; border-radius: 50%; background: var(--zolty); display: grid; place-items: center; font-size: 36px; }
+.ocena-opis { display: flex; flex-direction: column; text-align: left; }
+.ocena-opis b { font-size: 20px; font-weight: 600; }
+.kafel.zolty { background: var(--zolty); } .kafel.mietowy { background: var(--mietowy); } .kafel.rozowy { background: var(--rozowy); }
+.podsum .sekcja { align-self: flex-start; margin-bottom: 0; }
+.bez-bledow { font-weight: 500; color: var(--ok); }
+.status { min-height: 0; margin: 0; font-weight: 500; color: var(--ok); }
+.kopiuj { width: 100%; min-height: 160px; margin-top: 6px; border: 1px solid var(--linia); border-radius: 14px; padding: 10px; background: var(--karta); }
+
+/* ustawienia */
+.profil-gora { display: flex; align-items: center; gap: 14px; margin-bottom: 8px; }
+.profil-gora h1 { font-size: 33px; margin: 0; line-height: 1.1; }
+.profil-duzy-avatar { width: 64px; height: 64px; border-radius: 50%; background: var(--akcent); display: grid; place-items: center; font-size: 30px; }
+.ust { background: var(--karta); border: 1px solid var(--linia); border-radius: var(--r); padding: 4px 16px 14px; margin-top: 14px; }
+.ust .sekcja { margin-top: 14px; }
+.wiersz { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--linia); }
+.wiersz:last-child { border-bottom: 0; }
+input.pole { display: block; width: 100%; height: auto; padding: 12px 14px; border-radius: 12px; border: 1px solid var(--linia); background: var(--tlo); margin: 6px 0 10px; cursor: text; font-size: 16px; }
+
+/* własne okienko (jak w Lingozie: wysuwane od dołu; bez maskotki) */
+.okno-tlo { position: fixed; inset: 0; z-index: 90; background: rgba(29,28,34,.32); backdrop-filter: blur(3px); -webkit-backdrop-filter: blur(3px); opacity: 0; transition: opacity .2s; }
+.okno-tlo.wid { opacity: 1; }
+.okno { position: fixed; left: 12px; right: 12px; bottom: calc(var(--dol) + 12px); z-index: 91; max-width: 460px; margin: 0 auto; background: var(--karta);
+  border-radius: 30px; padding: 26px 22px 20px; text-align: center; box-shadow: 0 6px 0 var(--linia), 0 30px 60px -20px rgba(29,28,34,.45);
+  transform: translateY(120%); transition: transform .28s cubic-bezier(.2,.9,.3,1.1); }
+.okno.wid { transform: none; }
+.okno-tytul { font-size: 24px; line-height: 1.2; margin-bottom: 6px; }
+.okno-tekst { color: var(--szary); margin: 0 0 18px; font-size: 16px; }
+.okno-przyciski { display: flex; gap: 10px; }
+.okno-przyciski .btn { flex: 1; }
+
+/* ---------------- biologia: pytania, luki, wpisywanie, kolejność, pary, pytania otwarte ---------------- */
+.pytanie { font-size: 23px; line-height: 1.35; margin: 4px 4px 8px; text-align: center; }
+.pytanie.dlugie { font-size: 19px; text-align: left; }
+.zadanie-karta { padding: 22px 16px 14px; }
+.zadanie-karta.zle { min-height: 0; }
+.zadanie-karta.zle .pytanie { font-size: 17px; }
+.zadanie-obraz { display: block; max-width: 100%; max-height: 30dvh; margin: 0 auto 10px; border-radius: 16px; }
+.luka { display: inline-block; min-width: 4.2em; border-bottom: 3px solid currentColor; opacity: .55; margin: 0 .12em; line-height: 1.05; }
+.luka.pelna { opacity: 1; min-width: 0; padding: 0 .2em; border-radius: 8px 8px 0 0; background: rgba(255,255,255,.7); }
+.zadanie-karta.ok .luka.pelna { color: var(--ok); border-color: var(--ok); }
+.zadanie-karta.zle .luka.pelna { color: var(--zle); border-color: var(--zle); text-decoration: line-through; }
+.ramka-poprawna .luka.pelna { color: var(--ok); border-color: var(--ok); background: none; text-decoration: none; }
+.ramka-poprawna .rownanie { font-size: 20px; font-weight: 500; line-height: 1.35; padding: 4px 0 0; }
+.uwaga-ok { margin: 0; font-size: 15px; color: var(--tusz); background: rgba(255,255,255,.7); border-radius: 12px; padding: 8px 12px; }
+
+.opcje.obok { flex-direction: row; }
+.opcje.obok .opcja { min-height: 72px; font-size: 21px; }
+.opcje.dlugie .opcja { justify-content: flex-start; text-align: left; font-size: 17px; line-height: 1.3; padding: 12px 16px; }
+.opcja-txt { min-width: 0; }
+
+input.wpis { width: 100%; padding: 14px 16px; border-radius: 18px; border: 2px solid var(--linia); border-bottom-width: 4px; background: var(--karta);
+  font-size: 20px; outline: none; text-align: center; }
+input.wpis:focus { border-color: #8AA8F0; background: #F4F7FF; }
+input.wpis.ok { border-color: var(--ok); color: var(--ok); }
+input.wpis.zle { border-color: var(--zle); color: var(--zle); text-decoration: line-through; }
+.stopka .btn.sprawdz { min-height: 56px; background: var(--tusz); color: #fff; font-size: 18px; border-radius: 18px; }
+
+.ulozone { list-style: none; counter-reset: k; padding: 0; margin: 6px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.slot { counter-increment: k; display: flex; align-items: center; gap: 10px; min-height: 48px; padding: 8px 12px; border-radius: 14px;
+  border: 2px dashed rgba(29,28,34,.18); background: rgba(255,255,255,.55); font-size: 17px; line-height: 1.25; }
+.slot::before { content: counter(k); flex: none; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center; background: var(--linia); font-size: 14px; font-weight: 600; }
+.slot.pelny { border-style: solid; border-color: var(--brzeg, var(--linia)); background: #fff; cursor: pointer; }
+.slot.ok { border-color: var(--ok); } .slot.ok::before { background: var(--ok); color: #fff; }
+.slot.zle { border-color: var(--zle); } .slot.zle::before { background: var(--zle); color: #fff; }
+.kafle { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 16px; }
+.kafel-odp, .para-el { border: 2px solid transparent; background: var(--karta); border-radius: 16px; padding: 10px 14px; font-size: 17px; line-height: 1.25; cursor: pointer;
+  box-shadow: 0 5px 0 var(--brzeg, #D9D2C2), 0 12px 16px -12px rgba(29,28,34,.4); margin-bottom: 5px; transition: transform .06s, box-shadow .06s, opacity .15s; }
+.kafel-odp:active:not(:disabled), .kafel-odp.wcisniety { transform: translateY(4px); box-shadow: 0 1px 0 var(--brzeg, #D9D2C2); }
+.kafel-odp:disabled { opacity: .25; box-shadow: none; transform: translateY(4px); }
+
+.pary { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 10px; margin-top: 16px; }
+.pary-kol { display: flex; flex-direction: column; gap: 10px; }
+.para-el { text-align: left; font-size: 16px; padding: 10px 12px; }
+.para-el.lewy { font-weight: 500; }
+.para-el.wybrany { border-color: var(--tusz); }
+.para-el.ok { border-color: var(--ok); } .para-el.zle { border-color: var(--zle); }
+.lista-par { margin: 4px 0 0; padding-left: 1.2em; color: var(--tusz); font-size: 16px; text-align: left; }
+.lista-par li { margin-bottom: 4px; }
+
+.wzor { margin-top: 12px; background: var(--ok-tlo); border-radius: 18px; padding: 12px 14px; text-align: left; }
+.wzor p { margin: 6px 0 0; font-size: 17px; }
+.wzor .kat-etykieta { color: var(--ok); opacity: 1; }
+.wzor-blad { font-size: 15px !important; color: var(--tusz); }
+.stopka-tytul.neutral { color: var(--tusz); font-size: 18px; }
+.zrodlo { display: flex; align-items: flex-start; gap: 6px; font-size: 14px; color: var(--szary); margin: 10px 0 0; }
+.zrodlo .ik svg { width: 16px; height: 16px; margin-top: 2px; }
+.kroki { list-style: disc; }
+
+/* lista lekcji: ikony z tym, co jest w lekcji */
+.kp-ikony { display: flex; flex-wrap: wrap; gap: 4px 12px; font-size: 13px; opacity: .78; }
+.kp-ikona { display: inline-flex; align-items: center; gap: 4px; }
+.kp-ikona .ik svg { width: 15px; height: 15px; }
+
+/* nagrania */
+.nagrania { display: flex; flex-direction: column; gap: 10px; }
+.nagranie { background: var(--karta); border: 1px solid var(--linia); border-radius: 20px; padding: 12px 14px; display: flex; flex-direction: column; gap: 8px; }
+.nagr-gora { display: flex; align-items: center; gap: 12px; }
+.nagr-gora b { font-weight: 500; display: inline-flex; align-items: center; gap: 6px; }
+.graj-btn { width: 50px; height: 50px; flex: none; border-radius: 50%; border: 0; background: var(--tusz); color: #fff; display: grid; place-items: center; cursor: pointer; }
+.graj-btn .ik svg { width: 22px; height: 22px; }
+.graj-btn:disabled { opacity: .5; }
+.nagr-dol { display: flex; align-items: center; gap: 10px; }
+.cofnij-btn { width: 36px; height: 36px; flex: none; border-radius: 50%; border: 1px solid var(--linia); background: var(--tlo); display: grid; place-items: center; cursor: pointer; }
+.cofnij-btn:disabled { opacity: .4; }
+.suwak { flex: 1; min-width: 0; accent-color: var(--ok); }
+.nagr-czas { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.nagr-stan:empty { display: none; }
+.klodka .ik svg { width: 14px; height: 14px; color: var(--szary); }
+
+/* ściąga */
+.karta-sciagi { display: flex; align-items: center; gap: 12px; margin-top: 14px; padding: 14px 16px; background: var(--karta); border: 1px solid var(--linia); border-radius: 18px; }
+.naglowek-dzialu.niski { padding-top: 20px; }
+.sciaga { margin: 8px 0 0; padding: 0 0 0 1.5em; font-size: 17px; line-height: 1.5; }
+.sciaga li { margin-bottom: 10px; padding-left: 4px; }
+.sciaga li::marker { color: var(--oliwka); font-weight: 600; }
+.sciaga-obraz { margin: 6px 0 18px -1.5em; background: #fff; border-radius: 18px; padding: 10px; border: 1px solid var(--linia); }
+.sciaga-obraz img { display: block; width: 100%; height: auto; border-radius: 10px; }
+.sciaga-obraz figcaption { font-size: 14px; color: var(--szary); margin-top: 8px; }
+.pojecia { margin: 0; background: var(--karta); border: 1px solid var(--linia); border-radius: 18px; padding: 6px 16px; }
+.pojecia dt { font-size: 18px; margin-top: 12px; }
+.pojecia dd { margin: 2px 0 12px; padding-bottom: 12px; border-bottom: 1px solid var(--linia); }
+.pojecia dd:last-child { border-bottom: 0; }
+
+/* gwiazdki: stonowane na kartach, kolorowe tylko w wynikach */
+.gwiazdki { display: inline-flex; gap: 2px; color: var(--tusz); opacity: .55; }
+.gwiazdki .gw { display: inline-grid; width: 15px; height: 15px; }
+.gwiazdki .gw svg { width: 100%; height: 100%; }
+.gwiazdki.gwiazdki-wynik { color: #E9B400; opacity: 1; }
+.gwiazdki.duze .gw { width: 40px; height: 40px; }
+.gw-puste { color: rgba(29,28,34,.16); }
+
+
+@media (max-height: 700px) {
+  .lekcja-tytul { display: none; }
+}
+@media (min-width: 700px) {
+  .tytul { font-size: 52px; }
+}
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+
+/* ================= karta pytania jak wierzchnia karta z talii (inspiracja Wojtka, 2026-10-12) =================
+   biała karta z grubą krawędzią 3D i dwiema kartami pod spodem, kolorowy panel z pytaniem i białymi falami,
+   luka jako żółta pigułka, odpowiedzi tuż pod kartą: przyciski 3D z literą w kwadraciku i znakiem po odpowiedzi */
+:root { --atrament: #2A2831; --fale: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 120' fill='none' stroke='white' stroke-opacity='.55' stroke-width='2' stroke-linecap='round'%3E%3Cpath d='M-10 70c40-30 80 30 120 0s80-30 120 0 60 20 80 5'/%3E%3Cpath d='M-10 88c40-30 80 30 120 0s80-30 120 0 60 20 80 5' stroke-opacity='.35'/%3E%3Cpath d='M150 10c25 0 30 20 55 20s30-20 55-20 25 10 45 10' stroke-opacity='.3'/%3E%3C/svg%3E"); }
+
+.karta-talia { position: relative; padding-bottom: 22px; margin-top: 4px; }
+.karta-talia::before, .karta-talia::after { content: ''; position: absolute; left: 50%; bottom: 0; border-radius: 30px; background: rgba(255,255,255,.72);
+  border: 2px solid var(--atrament); transform: translateX(-50%); }
+.karta-talia::before { width: 92%; height: 60px; bottom: 11px; z-index: 0; }
+.karta-talia::after { width: 84%; height: 50px; bottom: 0; z-index: -1; background: rgba(255,255,255,.5); border-color: rgba(42,40,49,.6); box-shadow: 0 3px 0 rgba(42,40,49,.35); }
+.lekcja .cw-pole { isolation: isolate; }
+
+.zadanie-karta { position: relative; z-index: 1; min-height: 0; display: flex; flex-direction: column; justify-content: flex-start; gap: 12px;
+  background: #fff; border: 2px solid var(--atrament); border-radius: 30px; padding: 12px 12px 14px;
+  box-shadow: 0 6px 0 var(--atrament), 0 24px 30px -18px rgba(29,28,34,.5); transition: border-color .2s, box-shadow .2s; }
+.zadanie-karta.ok { background: #fff; border-color: var(--ok); box-shadow: 0 6px 0 var(--ok), 0 24px 30px -18px rgba(29,28,34,.4); }
+.zadanie-karta.zle { background: #fff; border-color: var(--zle); box-shadow: 0 6px 0 var(--zle), 0 24px 30px -18px rgba(29,28,34,.4); }
+
+.karta-gora { display: flex; align-items: center; gap: 10px; padding: 2px 4px 0; }
+.karta-ikona { width: 34px; height: 34px; flex: none; border-radius: 11px; display: grid; place-items: center; background: var(--tlo-karty);
+  border: 2px solid var(--atrament); box-shadow: 0 2px 0 var(--atrament); }
+.karta-ikona .ik svg { width: 19px; height: 19px; }
+.karta-naglowek { flex: 1; min-width: 0; display: flex; flex-direction: column; line-height: 1.15; }
+.karta-naglowek b { font-size: 17px; font-weight: 400; }
+.karta-naglowek small { font-size: 12.5px; color: var(--szary); margin-top: 2px; }
+.karta-nr { flex: none; font-size: 13px; font-weight: 600; font-variant-numeric: tabular-nums; padding: 4px 10px; border-radius: 999px;
+  background: var(--tlo); border: 1.5px solid rgba(42,40,49,.25); }
+
+.pytanie-panel { position: relative; border-radius: 22px; padding: 30px 18px 34px; min-height: min(200px, 26dvh); display: flex; flex-direction: column; justify-content: center; gap: 8px;
+  background-color: var(--tlo-karty); background-image: var(--fale), linear-gradient(180deg, rgba(255,255,255,.35), rgba(255,255,255,0) 60%);
+  background-repeat: no-repeat; background-size: 120% auto, auto; background-position: center bottom -6px, 0 0;
+  border: 2px solid var(--atrament); box-shadow: inset 0 -5px 0 var(--brzeg); }
+.pytanie-panel .pytanie { margin: 0; font-size: 23px; line-height: 1.38; text-align: center; color: var(--tusz); }
+.pytanie-panel.dlugie { min-height: 0; padding: 18px 16px 22px; }
+.pytanie-panel.dlugie .pytanie { font-size: 18.5px; text-align: left; }
+.pytanie-panel .tresc { margin: 0; font-size: 17px; }
+.zadanie-karta.zle .pytanie-panel .pytanie, .zadanie-karta.zle .pytanie-panel.dlugie .pytanie { font-size: 17px; }
+.odp-miejsce:empty, .zadanie-karta .info:empty { display: none; }
+.zadanie-karta .info { margin: 0; }
+
+/* luka: żółta pigułka 3D; pusta pokazuje kropki */
+.luka { display: inline-flex; align-items: center; justify-content: center; min-width: 4.4em; height: 1.45em; padding: 0 .5em; margin: 0 .15em; vertical-align: -.12em;
+  border-radius: 999px; background: var(--zolty); border: 2px solid var(--atrament); box-shadow: 0 3px 0 var(--atrament); opacity: 1; line-height: 1;
+  font-family: Jost, system-ui, sans-serif; font-size: .82em; font-weight: 600; }
+.luka:not(.pelna)::before { content: '• • • • •'; letter-spacing: -.05em; font-size: .7em; opacity: .7; }
+.luka.pelna { background: #fff; min-width: 0; border-radius: 999px; }
+.zadanie-karta.ok .luka.pelna { background: var(--ok-tlo); color: var(--ok); border-color: var(--ok); box-shadow: 0 3px 0 var(--ok); }
+.zadanie-karta.zle .luka.pelna { background: var(--zle-tlo); color: var(--zle); border-color: var(--zle); box-shadow: 0 3px 0 var(--zle); text-decoration: line-through; }
+.ramka-poprawna .luka.pelna { background: var(--ok-tlo); color: var(--ok); border-color: var(--ok); box-shadow: 0 3px 0 var(--ok); text-decoration: none; }
+
+/* odpowiedzi: przyciski 3D z literą */
+.cw-pole > .opcje { display: flex; flex-direction: column; gap: 12px; margin-top: 16px; }
+.opcje.obok { flex-direction: row; }
+.opcja { position: relative; display: flex; align-items: center; justify-content: flex-start; gap: 12px; width: 100%; min-height: 64px; margin: 0;
+  padding: 10px 14px 10px 10px; text-align: left; font-size: 17.5px; line-height: 1.28; color: var(--tusz); cursor: pointer;
+  background: #fff; border: 2px solid var(--atrament); border-radius: 18px; box-shadow: 0 5px 0 var(--atrament);
+  transition: transform .06s, box-shadow .06s, opacity .2s, background-color .15s; }
+.opcja:active:not(:disabled), .opcja.wcisniety { transform: translateY(4px); box-shadow: 0 1px 0 var(--atrament); }
+.litera { width: 38px; height: 38px; flex: none; border-radius: 11px; display: grid; place-items: center; font-size: 18px;
+  background: var(--tlo-karty); border: 2px solid var(--atrament); box-shadow: 0 2px 0 var(--atrament); }
+.litera.ikona .ik svg { width: 20px; height: 20px; stroke-width: 2.4; }
+.opcja-txt { flex: 1; min-width: 0; }
+.opcja-znak { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; }
+.opcja-znak:empty { display: none; }
+.opcja-znak .ik svg { width: 18px; height: 18px; stroke-width: 2.6; }
+.opcja.ok, .opcja.dobra { background: var(--ok-tlo); border-color: var(--ok); box-shadow: 0 5px 0 var(--ok); }
+.opcja.ok .litera, .opcja.dobra .litera { background: var(--ok); color: #fff; border-color: var(--ok); box-shadow: none; }
+.opcja.ok .opcja-znak, .opcja.dobra .opcja-znak { background: var(--ok); color: #fff; }
+.opcja.zle { background: var(--zle-tlo); border-color: var(--zle); box-shadow: 0 5px 0 var(--zle); }
+.opcja.zle .litera { background: var(--zle); color: #fff; border-color: var(--zle); box-shadow: none; }
+.opcja.zle .opcja-znak { background: var(--zle); color: #fff; }
+.opcja.wygaszona { opacity: .45; }
+.opcje.obok .opcja { flex-direction: column; justify-content: center; gap: 8px; min-height: 108px; text-align: center; font-size: 19px; padding: 14px 10px; }
+.opcje.obok .opcja .litera { width: 46px; height: 46px; border-radius: 14px; }
+.opcje.obok .opcja-txt { flex: none; }
+.opcje.obok .opcja-znak { position: absolute; top: 8px; right: 8px; }
+
+/* przyciski w stopce: 3D z grubą krawędzią; „Przerwij” z przerywaną ramką */
+.stopka .btn { border: 2px solid var(--atrament); box-shadow: 0 5px 0 var(--atrament); transition: transform .06s, box-shadow .06s; margin-bottom: 5px; }
+.stopka .btn:active:not(:disabled), .stopka .btn.wcisniety { transform: translateY(4px); box-shadow: 0 1px 0 var(--atrament); }
+.stopka .btn.zielony { border-color: #1E6B3E; box-shadow: 0 5px 0 #1E6B3E; }
+.stopka .btn.czerwony { border-color: #A3283D; box-shadow: 0 5px 0 #A3283D; }
+.stopka .btn.kreska { background: transparent; border: 2px dashed var(--atrament); box-shadow: none; }
+.stopka .btn.sprawdz { background: var(--tusz); color: #fff; }
+.stopka .btn:disabled { box-shadow: 0 5px 0 rgba(42,40,49,.4); }
+input.wpis { border: 2px solid var(--atrament); border-bottom-width: 2px; box-shadow: 0 4px 0 var(--atrament); background: #fff; margin-bottom: 4px; }
+input.wpis:focus { border-color: var(--atrament); background: #fff; box-shadow: 0 4px 0 var(--atrament), 0 0 0 4px var(--tlo-karty); }
+input.wpis.ok { border-color: var(--ok); box-shadow: 0 4px 0 var(--ok); }
+input.wpis.zle { border-color: var(--zle); box-shadow: 0 4px 0 var(--zle); }
+
+/* kolejność i pary w tym samym duchu */
+.kafel-odp, .para-el { border: 2px solid var(--atrament); box-shadow: 0 4px 0 var(--atrament); background: #fff; }
+.kafel-odp:active:not(:disabled), .kafel-odp.wcisniety { transform: translateY(3px); box-shadow: 0 1px 0 var(--atrament); }
+.para-el.wybrany { outline: 3px solid var(--tlo-karty); outline-offset: 2px; }
+.slot { border-color: rgba(42,40,49,.35); }
+.slot.pelny { border: 2px solid var(--atrament); }
+.poprawka { border: 2px solid var(--atrament); box-shadow: 0 5px 0 var(--atrament); }
+.opcje.obok .opcja:first-child:not(.zle):not(.ok):not(.dobra) .litera { background: var(--mietowy); }
+.opcje.obok .opcja:last-child:not(.zle):not(.ok):not(.dobra) .litera { background: var(--rozowy); }
+
+/* ================= działy na stronie głównej (jak spis treści podręcznika) =================
+   każdy dział: kolorowy blok 3D z dużym numerem; w środku lekcje po kolei — gotowe białe, przyszłe przerywane „wkrótce” */
+.dzialy { display: flex; flex-direction: column; gap: 18px; margin-top: 6px; }
+.dzial { border-radius: 28px; border: 2px solid var(--atrament); box-shadow: 0 6px 0 var(--atrament), 0 22px 28px -20px rgba(29,28,34,.45);
+  background-image: var(--znaki), linear-gradient(180deg, rgba(255,255,255,.42), rgba(255,255,255,0) 40%);
+  background-repeat: no-repeat; background-position: right -18px top -10px, 0 0; background-size: 46% auto, auto; overflow: hidden; }
+.dzial-gora { all: unset; box-sizing: border-box; width: 100%; display: flex; align-items: center; gap: 14px; padding: 16px 16px 16px 14px; cursor: pointer; }
+.dzial-gora:focus-visible { outline: 3px solid var(--atrament); outline-offset: -6px; border-radius: 24px; }
+.dzial-nr { width: 54px; height: 54px; flex: none; border-radius: 16px; display: grid; place-items: center; font-size: 22px;
+  background: #fff; border: 2px solid var(--atrament); box-shadow: 0 3px 0 var(--atrament); }
+.dzial-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.dzial-txt small { font-size: 11.5px; text-transform: uppercase; letter-spacing: .1em; font-weight: 600; color: rgba(29,28,34,.6); }
+.dzial-txt b { font-size: 21px; line-height: 1.18; font-weight: 400; color: var(--tusz); text-wrap: balance; }
+.dzial-meta { font-size: 13px; color: rgba(29,28,34,.7); margin-top: 2px; }
+.dzial-strzalka { flex: none; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: rgba(255,255,255,.7);
+  border: 1.5px solid rgba(42,40,49,.3); transition: transform .2s; }
+.dzial.otwarty .dzial-strzalka { transform: rotate(90deg); }
+.dzial-lekcje { display: none; flex-direction: column; gap: 10px; padding: 0 12px 14px; }
+.dzial.otwarty .dzial-lekcje { display: flex; }
+
+.lek-wiersz { display: flex; align-items: center; gap: 12px; padding: 11px 12px; border-radius: 18px; background: #fff; color: var(--tusz);
+  border: 2px solid var(--atrament); box-shadow: 0 4px 0 var(--atrament); transition: transform .06s, box-shadow .06s; }
+a.lek-wiersz:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--atrament); }
+.lek-nr { width: 36px; height: 36px; flex: none; border-radius: 11px; display: grid; place-items: center; font-size: 17px;
+  background: var(--tlo-karty); border: 2px solid var(--atrament); }
+.lek-nr.ikona .ik svg { width: 18px; height: 18px; }
+.lek-txt { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.lek-txt b { font-weight: 500; font-size: 16px; line-height: 1.25; }
+.lek-txt small { font-size: 12.5px; color: var(--szary); }
+.lek-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 2px 10px; }
+.lek-meta .kp-ikona .ik svg { width: 13px; height: 13px; }
+.lek-strzalka { flex: none; color: var(--szary); }
+.lek-wiersz.wkrotce { background: rgba(255,255,255,.45); border-style: dashed; border-color: rgba(42,40,49,.4); box-shadow: none; }
+.lek-wiersz.wkrotce .lek-nr { background: transparent; border-color: rgba(42,40,49,.35); color: rgba(29,28,34,.55); }
+.lek-wiersz.wkrotce .lek-txt b { color: rgba(29,28,34,.6); font-weight: 400; }
+.lek-wkrotce { flex: none; font-size: 11px; text-transform: uppercase; letter-spacing: .08em; font-weight: 600; color: rgba(29,28,34,.5); }
+
+/* ================= zaokrąglenia (Wojtek 2026-10-12: „lepiej było okrągłe, ale nie aż tak bardzo”) =================
+   ten sam styl 3D z gładką ramką, tylko rogi mniej więcej o połowę mniejsze */
+:root { --r: 14px; }
+.dzial { border-radius: 18px; }
+.lek-wiersz, .opcja, .kafel-odp, .para-el, .slot, .lista-pozycji, input.wpis, .karta-sciagi { border-radius: 12px; }
+.lek-nr, .litera, .karta-ikona, .blok-nr { border-radius: 8px; }
+.dzial-nr { border-radius: 10px; }
+.zadanie-karta, .karta-talia::before, .karta-talia::after { border-radius: 18px; }
+.pytanie-panel { border-radius: 13px; }
+.btn, .stopka .btn, .chip { border-radius: 11px; }
+.cta, .karta-pakietu, .naglowek-dzialu, .ust { border-radius: 16px; }
+.nagranie, .poprawka, .gram-krok, .wzor, .ramka-poprawna, .sciaga-obraz, .pojecia { border-radius: 14px; }
+.okno { border-radius: 18px; }
+.opcje.obok .opcja .litera { border-radius: 10px; }
+.kp-emoji { border-radius: 14px; }
+.luka { border-radius: 8px; }
+
+/* ================= ilustracje: atlas przyrodniczy (tusz + akwarela) ================= */
+.ilustr { display: block; width: 100%; height: 100%; object-fit: contain; filter: drop-shadow(0 4px 5px rgba(29,28,34,.14)); }
+.dzial-obraz { position: relative; width: 78px; height: 78px; flex: none; margin: -6px 0 -6px -4px; }
+.dzial-obraz .dzial-nr { position: absolute; left: -2px; bottom: -2px; width: 30px; height: 30px; font-size: 14px; border-radius: 8px; box-shadow: 0 2px 0 var(--atrament); }
+.dzial-obraz:not(:has(img)) .dzial-nr { position: static; width: 54px; height: 54px; font-size: 22px; }
+.lek-miniatura { position: relative; width: 54px; height: 54px; flex: none; margin: -4px 0; }
+.lek-miniatura .lek-nr { position: absolute; left: -4px; bottom: -4px; width: 24px; height: 24px; font-size: 12.5px; border-radius: 7px; border-width: 1.5px; }
+.lek-miniatura:not(:has(img)) .lek-nr { position: static; width: 36px; height: 36px; font-size: 17px; margin: 9px; }
+.lek-wiersz.wkrotce .lek-obraz { opacity: .5; filter: grayscale(.55); }
+.lek-wiersz.wkrotce .lek-miniatura .lek-nr { background: rgba(255,255,255,.8); }
+.nagl-obraz { position: absolute; top: 10px; right: 12px; width: 112px; height: 112px; }
+.naglowek-dzialu:has(.nagl-obraz) { padding-top: 112px; }
+.naglowek-dzialu:has(.nagl-obraz) h1 { padding-right: 0; }
+.karta-ilustr { width: 40px; height: 40px; flex: none; }
+
+/* diagnostyka nagrań w Ustawieniach */
+.diag { list-style: none; padding: 0; margin: 12px 0 0; display: flex; flex-direction: column; gap: 8px; }
+.diag li { display: flex; gap: 8px; align-items: flex-start; font-size: 14.5px; line-height: 1.35; }
+.diag li .ik { flex: none; width: 22px; height: 22px; border-radius: 50%; color: #fff; margin-top: 1px; }
+.diag li .ik svg { width: 14px; height: 14px; stroke-width: 2.8; }
+.diag-ok .ik { background: var(--ok); } .diag-zle .ik { background: var(--zle); } .diag-uwaga .ik { background: #C99A1E; }
+.diag-zle span { color: var(--zle); font-weight: 500; }
+
+/* ================= górny pasek: powrót zawsze w lewym górnym rogu (Wojtek 2026-10-24) =================
+   pigułka: strzałka w lewo + słowo („Wróć” w aplikacji, „Przedmioty” na starcie pod ogarnijmaterial.pl),
+   tło karty, obramowanie i cień 3px jak reszta 3D; po prawej ustawienia i okrągły znaczek osoby */
+.pasek-gora { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 44px; margin: 0 0 14px; }
+.pasek-prawo { display: flex; align-items: center; gap: 10px; margin-left: auto; }
+.pigulka-wstecz { display: inline-flex; align-items: center; gap: 6px; height: 42px; padding: 0 16px 0 11px; flex: none;
+  border-radius: 999px; background: var(--karta); color: var(--tusz); border: 2px solid var(--atrament); box-shadow: 0 3px 0 var(--atrament);
+  font: 500 16px/1 Jost, system-ui, sans-serif; cursor: pointer; transition: transform .06s, box-shadow .06s; }
+.pigulka-wstecz .ik svg { width: 20px; height: 20px; stroke-width: 2.3; }
+.pigulka-wstecz:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--atrament); }
+.pigulka-wstecz:focus-visible, .znaczek-osoby:focus-visible { outline: 3px solid var(--akcent); outline-offset: 2px; }
+.znaczek-osoby { width: 42px; height: 42px; flex: none; border-radius: 50%; display: grid; place-items: center; font-size: 19px; line-height: 1;
+  background: var(--akcent); color: var(--tusz); border: 2px solid var(--atrament); box-shadow: 0 3px 0 var(--atrament); }
+.znaczek-osoby:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--atrament); }
+.pasek-gora .ikona-btn { width: 42px; height: 42px; border: 2px solid var(--atrament); box-shadow: 0 3px 0 var(--atrament); color: var(--tusz); }
+.przedmiot-etykieta { display: flex; align-items: baseline; gap: 10px; margin: 2px 2px 0; }
+.przedmiot-etykieta b { font-size: 22px; font-weight: 400; }
+/* w ćwiczeniu pigułka obok paska postępu */
+.lekcja-gora .pasek-gora { margin: 0; flex: none; min-height: 0; }
+.lekcja-gora:has(.pasek-gora:only-child) { padding-bottom: 0; }
+
+/* komunikat zamiast aplikacji (inna osoba / brak sieci pod ogarnijmaterial.pl) */
+.komunikat { background: var(--karta); border: 2px solid var(--atrament); border-radius: 16px; box-shadow: 0 5px 0 var(--atrament);
+  padding: 22px 20px 20px; text-align: center; margin-top: 8px; }
+.komunikat h1 { font-size: 28px; line-height: 1.15; margin: 6px 0 10px; }
+.komunikat p { margin: 0 0 18px; color: var(--szary); }
+.komunikat-obraz { width: 150px; height: 150px; margin: 0 auto 6px; }
+
+/* komunikat bez ilustracji: bąbel z ikoną przedmiotu; pusta lista lekcji */
+.komunikat-znak { width: 64px; height: 64px; margin: 0 auto 10px; background-color: var(--akcent); }
+.komunikat.pusto { margin-top: 18px; }
+.komunikat.pusto p { margin-bottom: 4px; }
+.nagr-brak { margin: 0 2px 4px; }
+
+/* ================= akcent przedmiotu ================= */
+/* Przyroda: brzoskwinia (tło ikony aplikacji); na kartach biała lupa, listek i kropla */
+:root {
+  --akcent: #F9D7AF;
+  --znaki: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 140' fill='none' stroke='white' stroke-opacity='.6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='150' cy='46' r='22'/%3E%3Cpath d='M166 62l18 18'/%3E%3Cpath d='M104 112c0-20 12-32 34-34 0 22-12 34-32 34z'/%3E%3Cpath d='M104 112l20-20'/%3E%3Cpath d='M176 96c7 9 12 15 12 21a12 12 0 0 1-24 0c0-6 5-12 12-21z' stroke-opacity='.5'/%3E%3C/svg%3E");
+}
+.dzial-obraz:not(:has(img)) { width: auto; height: auto; margin: 0; }

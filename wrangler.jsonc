@@ -1,0 +1,11 @@
+{
+  "$schema": "https://unpkg.com/wrangler@4/config-schema.json",
+  // Przyroda (Aniela, kl. 4): sama statyczna strona z public/ — bez skryptu Workera. Konto, wyniki i nagrania
+  // obsługuje Worker ogarnijmaterial.pl (~/Projekty/ogarnijmaterial). Publikacja: npx -y wrangler@4 deploy
+  // Tylko public/ trafia do sieci — narzędzia, CLAUDE.md i ten plik zostają lokalnie.
+  "name": "przyroda",
+  "compatibility_date": "2026-10-19",
+  "assets": { "directory": "./public" },
+  "workers_dev": false,
+  "routes": [{ "pattern": "przyroda.ogarnijmaterial.pl", "custom_domain": true }]
+}

@@ -1,0 +1,584 @@
+{
+  "id": "przyr-dz1-l01-co-to-jest-przyroda",
+  "zrodlo": "lekcje-audio",
+  "dla": [
+    "aniela"
+  ],
+  "tytul": "Co to jest przyroda?",
+  "opis": "Przyroda wokół nas — czym jest i skąd o niej wiedzieć",
+  "dzial": "I",
+  "dzialTytul": null,
+  "lekcja": 1,
+  "strony": "12–16",
+  "dodano": "2026-10-20",
+  "termin": null,
+  "ikona": "lisc",
+  "kolor": "brzoskwinia",
+  "ocena": true,
+  "nagrania": [
+    {
+      "tytul": "Lekcja z podręcznikiem",
+      "opis": "Słuchaj i patrz do książki",
+      "prywatne": "nagrania/przyr-dz1-l01-co-to-jest-przyroda.mp3",
+      "wersja": "c38dd48415",
+      "minuty": 10
+    }
+  ],
+  "sciaga": [
+    "Przyroda to szkolny przedmiot, który zaczyna się w czwartej klasie. Uczysz się go także w piątej i szóstej.",
+    "Wiedza o przyrodzie pomaga zrozumieć to, co dzieje się dookoła. Dzięki niej rozpoznasz na przykład zimorodka, czyli niebieskiego ptaka, który nurkuje i łowi ryby.",
+    "Przyroda uczy też dbania o własne zdrowie.",
+    "Kto zna przyrodę, potrafi świadomie chronić okolicę, w której mieszka. Przykład: zbierasz śmieci w lesie i wrzucasz je do kosza.",
+    "Uczenie się przyrody pozwala odkrywać jej prawa, które działają cały czas wokół nas. Zaczyna się od pytania, na przykład skąd bierze się jakiś zapach.",
+    "Wiedza przyrodnicza przydaje się w wielu zawodach. Lekarz leczy ludzi, leśnik opiekuje się lasem, rolnik wytwarza żywność, chemik wymyśla nowe leki i materiały, oceanograf bada morza i oceany, a astronauta bada kosmos.",
+    "Przyrodą nazywamy wszystko wokół nas, czego nie wytworzyli ludzie. Przyroda jest w twoim domu, w okolicy i na całej Ziemi.",
+    "Wszystko, co nas otacza, dzielimy na dwie grupy: przyrodę oraz rzeczy zrobione przez ludzi.",
+    "Przyroda ma dwie części: elementy ożywione, czyli organizmy, oraz elementy nieożywione.",
+    "Organizmy wykonują czynności życiowe. Każdy z nich oddycha, pobiera pokarm i wydala, ma potomstwo, rośnie, rozwija się, a do tego sam się przemieszcza.",
+    "Do organizmów należą ludzie, zwierzęta, rośliny, grzyby i bakterie. Człowiek też jest organizmem.",
+    "Elementy nieożywione nie wykonują czynności życiowych. Nie rosną, nie rozmnażają się i same się nie przemieszczają. Ruszają się tylko wtedy, gdy coś je popchnie.",
+    "Przykłady elementów nieożywionych to powietrze, woda, chmury, Słońce i skały. Chmury się przesuwają, ale to nie czyni ich organizmami.",
+    "Ludzie zbudowali na przykład domy i inne budynki, drogi, chodniki, ulice, mosty, słupy energetyczne i ogrodzenia. Te rzeczy nie należą do przyrody.",
+    "Żeby poznawać przyrodę, wystarczy uważnie się rozglądać i zadawać pytania. W szkole uczysz się badać ją podobnie jak naukowcy.",
+    "Źródeł wiedzy o przyrodzie jest wiele: obserwacje przyrodnicze, doświadczenia przyrodnicze, atlasy, albumy i inne publikacje, filmy i artykuły w internecie, a także ludzie znający się na przyrodzie, czyli naukowcy i pasjonaci.",
+    "Przyrodę poznasz też w ogrodzie zoologicznym, w ogrodzie botanicznym i w parku narodowym.",
+    "Świetnym miejscem do nauki jest szkolna pracownia przyrodnicza. Stoją w niej między innymi mapa, globusy, mikroskopy, rośliny w doniczkach, hodowla i naczynia laboratoryjne.",
+    "Przyrodę z całego świata można podglądać z domu przez kamery internetowe, na przykład gniazdo bociana albo bawiące się pandy. Takich kamer szukaj razem z dorosłym, który wybierze sprawdzone i bezpieczne strony."
+  ],
+  "definicje": {
+    "przyroda": "Wszystko, co jest wokół nas, a czego nie wytworzyli ludzie. Znajdziesz ją w domu, w swojej okolicy i na całej Ziemi.",
+    "organizm": "Inaczej element ożywiony przyrody, czyli coś, co żyje: człowiek, zwierzę, roślina, grzyb albo bakteria.",
+    "elementy ożywione": "Ta część przyrody, która żyje i wykonuje czynności życiowe. Inna nazwa to organizmy.",
+    "elementy nieożywione": "Ta część przyrody, która nie żyje: nie rośnie, nie ma potomstwa i sama się nie przemieszcza. Należą tu na przykład powietrze, woda, chmury, Słońce i skały.",
+    "elementy stworzone przez człowieka": "Rzeczy wokół nas zbudowane przez ludzi, na przykład budynki, mosty, drogi, chodniki, słupy energetyczne i ogrodzenia. Nie są częścią przyrody.",
+    "czynności życiowe": "To, co robi każdy organizm: oddycha, odżywia się, wydala, rozmnaża się, rośnie i rozwija się, a także sam się porusza.",
+    "źródła wiedzy o przyrodzie": "Miejsca i sposoby, dzięki którym dowiadujesz się o przyrodzie: obserwacje, doświadczenia, atlasy i albumy, filmy, ludzie znający się na przyrodzie, zoo, ogrody botaniczne i parki narodowe.",
+    "obserwacja przyrodnicza": "Uważne przyglądanie się przyrodzie, na przykład ptakom przez lornetkę.",
+    "doświadczenie przyrodnicze": "Sprawdzanie czegoś w przyrodzie przez samodzielne działanie, na przykład zmieszanie sody z płynem i patrzenie, co się stanie.",
+    "pracownia przyrodnicza": "Szkolna sala do nauki przyrody. Są w niej między innymi mapa, globusy, mikroskopy, rośliny w doniczkach, hodowla i naczynia laboratoryjne.",
+    "kamera internetowa": "Kamera przesyłająca obraz przez internet. Pozwala z domu podglądać przyrodę w odległych miejscach, na przykład gniazdo bociana albo pandy."
+  },
+  "bloki": [
+    {
+      "id": "pojecia",
+      "tytul": "Pojęcia z lekcji",
+      "polecenie": "Które pojęcie pasuje do opisu?",
+      "ile": 8,
+      "zadania": [
+        {
+          "kind": "wybor",
+          "e": "Wszystko, co jest wokół nas, a czego nie wytworzyli ludzie. Znajdziesz ją w domu, w swojej okolicy i na całej Ziemi.",
+          "a": "przyroda",
+          "choices": [
+            "przyroda",
+            "elementy ożywione",
+            "elementy nieożywione"
+          ],
+          "exp": [
+            "elementy ożywione to coś innego: Ta część przyrody, która żyje i wykonuje czynności życiowe. Inna nazwa to organizmy.",
+            "elementy nieożywione to coś innego: Ta część przyrody, która nie żyje: nie rośnie, nie ma potomstwa i sama się nie przemieszcza. Należą tu na przykład powietrze, woda, chmury, Słońce i skały."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "Inaczej element ożywiony przyrody, czyli coś, co żyje: człowiek, zwierzę, roślina, grzyb albo bakteria.",
+          "a": "organizm",
+          "choices": [
+            "organizm",
+            "elementy ożywione",
+            "elementy stworzone przez człowieka"
+          ],
+          "exp": [
+            "elementy ożywione to coś innego: Ta część przyrody, która żyje i wykonuje czynności życiowe. Inna nazwa to organizmy.",
+            "elementy stworzone przez człowieka to coś innego: Rzeczy wokół nas zbudowane przez ludzi, na przykład budynki, mosty, drogi, chodniki, słupy energetyczne i ogrodzenia. Nie są częścią przyrody."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "Ta część przyrody, która żyje i wykonuje czynności życiowe. Inna nazwa to organizmy.",
+          "a": "elementy ożywione",
+          "choices": [
+            "elementy ożywione",
+            "organizm",
+            "elementy stworzone przez człowieka"
+          ],
+          "exp": [
+            "organizm to coś innego: Inaczej element ożywiony przyrody, czyli coś, co żyje: człowiek, zwierzę, roślina, grzyb albo bakteria.",
+            "elementy stworzone przez człowieka to coś innego: Rzeczy wokół nas zbudowane przez ludzi, na przykład budynki, mosty, drogi, chodniki, słupy energetyczne i ogrodzenia. Nie są częścią przyrody."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "Ta część przyrody, która nie żyje: nie rośnie, nie ma potomstwa i sama się nie przemieszcza. Należą tu na przykład powietrze, woda, chmury, Słońce i skały.",
+          "a": "elementy nieożywione",
+          "choices": [
+            "elementy nieożywione",
+            "organizm",
+            "elementy stworzone przez człowieka"
+          ],
+          "exp": [
+            "organizm to coś innego: Inaczej element ożywiony przyrody, czyli coś, co żyje: człowiek, zwierzę, roślina, grzyb albo bakteria.",
+            "elementy stworzone przez człowieka to coś innego: Rzeczy wokół nas zbudowane przez ludzi, na przykład budynki, mosty, drogi, chodniki, słupy energetyczne i ogrodzenia. Nie są częścią przyrody."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "Rzeczy wokół nas zbudowane … ludzi, na przykład budynki, mosty, drogi, chodniki, słupy energetyczne i ogrodzenia. Nie są częścią przyrody.",
+          "a": "elementy stworzone przez człowieka",
+          "choices": [
+            "elementy stworzone przez człowieka",
+            "obserwacja przyrodnicza",
+            "elementy ożywione"
+          ],
+          "exp": [
+            "obserwacja przyrodnicza to coś innego: Uważne przyglądanie się przyrodzie, na przykład ptakom przez lornetkę.",
+            "elementy ożywione to coś innego: Ta część przyrody, która żyje i wykonuje czynności życiowe. Inna nazwa to organizmy."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "To, co robi każdy organizm: oddycha, odżywia się, wydala, rozmnaża się, rośnie i rozwija się, a także sam się porusza.",
+          "a": "czynności życiowe",
+          "choices": [
+            "czynności życiowe",
+            "źródła wiedzy o przyrodzie",
+            "elementy nieożywione"
+          ],
+          "exp": [
+            "źródła wiedzy o przyrodzie to coś innego: Miejsca i sposoby, dzięki którym dowiadujesz się o przyrodzie: obserwacje, doświadczenia, atlasy i albumy, filmy, ludzie znający się na przyrodzie, zoo, ogrody botaniczne i parki narodowe.",
+            "elementy nieożywione to coś innego: Ta część przyrody, która nie żyje: nie rośnie, nie ma potomstwa i sama się nie przemieszcza. Należą tu na przykład powietrze, woda, chmury, Słońce i skały."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "Miejsca i sposoby, dzięki którym dowiadujesz się o …: obserwacje, doświadczenia, atlasy i albumy, filmy, ludzie znający się na …, zoo, ogrody botaniczne i parki narodowe.",
+          "a": "źródła wiedzy o przyrodzie",
+          "choices": [
+            "źródła wiedzy o przyrodzie",
+            "organizm",
+            "elementy stworzone przez człowieka"
+          ],
+          "exp": [
+            "organizm to coś innego: Inaczej element ożywiony przyrody, czyli coś, co żyje: człowiek, zwierzę, roślina, grzyb albo bakteria.",
+            "elementy stworzone przez człowieka to coś innego: Rzeczy wokół nas zbudowane przez ludzi, na przykład budynki, mosty, drogi, chodniki, słupy energetyczne i ogrodzenia. Nie są częścią przyrody."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "Uważne przyglądanie się przyrodzie, na przykład ptakom przez lornetkę.",
+          "a": "obserwacja przyrodnicza",
+          "choices": [
+            "obserwacja przyrodnicza",
+            "organizm",
+            "elementy ożywione"
+          ],
+          "exp": [
+            "organizm to coś innego: Inaczej element ożywiony przyrody, czyli coś, co żyje: człowiek, zwierzę, roślina, grzyb albo bakteria.",
+            "elementy ożywione to coś innego: Ta część przyrody, która żyje i wykonuje czynności życiowe. Inna nazwa to organizmy."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "Sprawdzanie czegoś w przyrodzie przez samodzielne działanie, na przykład zmieszanie sody z płynem i patrzenie, co się stanie.",
+          "a": "doświadczenie przyrodnicze",
+          "choices": [
+            "doświadczenie przyrodnicze",
+            "źródła wiedzy o przyrodzie",
+            "elementy nieożywione"
+          ],
+          "exp": [
+            "źródła wiedzy o przyrodzie to coś innego: Miejsca i sposoby, dzięki którym dowiadujesz się o przyrodzie: obserwacje, doświadczenia, atlasy i albumy, filmy, ludzie znający się na przyrodzie, zoo, ogrody botaniczne i parki narodowe.",
+            "elementy nieożywione to coś innego: Ta część przyrody, która nie żyje: nie rośnie, nie ma potomstwa i sama się nie przemieszcza. Należą tu na przykład powietrze, woda, chmury, Słońce i skały."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "Szkolna sala do nauki przyrody. Są w niej między innymi mapa, globusy, mikroskopy, rośliny w doniczkach, hodowla i naczynia laboratoryjne.",
+          "a": "pracownia przyrodnicza",
+          "choices": [
+            "pracownia przyrodnicza",
+            "doświadczenie przyrodnicze",
+            "elementy stworzone przez człowieka"
+          ],
+          "exp": [
+            "doświadczenie przyrodnicze to coś innego: Sprawdzanie czegoś w przyrodzie przez samodzielne działanie, na przykład zmieszanie sody z płynem i patrzenie, co się stanie.",
+            "elementy stworzone przez człowieka to coś innego: Rzeczy wokół nas zbudowane przez ludzi, na przykład budynki, mosty, drogi, chodniki, słupy energetyczne i ogrodzenia. Nie są częścią przyrody."
+          ]
+        },
+        {
+          "kind": "wybor",
+          "e": "… przesyłająca obraz przez …. Pozwala z domu podglądać przyrodę w odległych miejscach, na przykład gniazdo bociana albo pandy.",
+          "a": "kamera internetowa",
+          "choices": [
+            "kamera internetowa",
+            "doświadczenie przyrodnicze",
+            "elementy nieożywione"
+          ],
+          "exp": [
+            "doświadczenie przyrodnicze to coś innego: Sprawdzanie czegoś w przyrodzie przez samodzielne działanie, na przykład zmieszanie sody z płynem i patrzenie, co się stanie.",
+            "elementy nieożywione to coś innego: Ta część przyrody, która nie żyje: nie rośnie, nie ma potomstwa i sama się nie przemieszcza. Należą tu na przykład powietrze, woda, chmury, Słońce i skały."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "wybor",
+      "tytul": "Test wyboru",
+      "polecenie": "Wybierz poprawną odpowiedź.",
+      "zadania": [
+        {
+          "kind": "wybor",
+          "e": "Który z tych elementów jest częścią przyrody?",
+          "a": "skała",
+          "choices": [
+            "most",
+            "skała",
+            "ogrodzenie"
+          ],
+          "exp": [
+            "Skały nie zbudowali ludzie, więc należy do przyrody.",
+            "Częsty błąd: wybranie mostu albo ogrodzenia, które wznieśli ludzie"
+          ],
+          "zrodlo": "ramka „W skrócie”, tabela"
+        },
+        {
+          "kind": "wybor",
+          "e": "Co jest organizmem?",
+          "a": "grzyb",
+          "choices": [
+            "chmura",
+            "Słońce",
+            "grzyb"
+          ],
+          "exp": [
+            "Grzyb żyje i wykonuje czynności życiowe.",
+            "Częsty błąd: wybranie chmury, bo się przesuwa"
+          ],
+          "zrodlo": "ramka „W skrócie”, tabela"
+        },
+        {
+          "kind": "wybor",
+          "e": "Do której grupy zaliczysz słup energetyczny?",
+          "a": "elementy stworzone przez człowieka",
+          "choices": [
+            "elementy stworzone przez człowieka",
+            "elementy nieożywione przyrody",
+            "organizmy"
+          ],
+          "exp": [
+            "Słup postawili ludzie, więc to nie przyroda.",
+            "Częsty błąd: zaliczenie słupa do nieożywionej przyrody, bo nie żyje"
+          ],
+          "zrodlo": "zdjęcie 03, pomarańczowe pole"
+        },
+        {
+          "kind": "wybor",
+          "e": "Która z tych czynności jest czynnością życiową?",
+          "a": "oddychanie",
+          "choices": [
+            "oddychanie",
+            "świecenie",
+            "topnienie"
+          ],
+          "exp": [
+            "Oddychanie to jedna z czynności, które wykonuje każdy organizm.",
+            "Częsty błąd: wybranie świecenia, które kojarzy się ze Słońcem, a Słońce nie jest organizmem"
+          ],
+          "zrodlo": "zdjęcie 03, zielone pole"
+        },
+        {
+          "kind": "wybor",
+          "e": "Kto dba o lasy?",
+          "a": "leśnik",
+          "choices": [
+            "rolnik",
+            "leśnik",
+            "chemik"
+          ],
+          "exp": [
+            "Opieka nad lasem to praca leśnika.",
+            "Częsty błąd: wybranie rolnika, który wytwarza żywność"
+          ],
+          "zrodlo": "zdjęcie 02, zawody"
+        },
+        {
+          "kind": "wybor",
+          "e": "Co jest źródłem wiedzy o przyrodzie?",
+          "a": "park narodowy",
+          "choices": [
+            "park narodowy",
+            "sklep z butami",
+            "parking"
+          ],
+          "exp": [
+            "W parku narodowym można poznawać przyrodę na żywo.",
+            "Częsty błąd: wybranie miejsca, w którym nie ma czego obserwować w przyrodzie"
+          ],
+          "zrodlo": "zdjęcie 04, zdjęcie nr 6"
+        },
+        {
+          "kind": "wybor",
+          "e": "Który przyrząd znajdziesz w szkolnej pracowni przyrodniczej?",
+          "a": "mikroskop",
+          "choices": [
+            "mikroskop",
+            "kierownica",
+            "piekarnik"
+          ],
+          "exp": [
+            "Mikroskopy to jedne z przyrządów, które stoją w pracowni.",
+            "Częsty błąd: wybranie przedmiotu, który nie służy do badania przyrody"
+          ],
+          "zrodlo": "zdjęcie 04, zdjęcie pracowni"
+        }
+      ]
+    },
+    {
+      "id": "prawda-falsz",
+      "tytul": "Prawda czy fałsz",
+      "polecenie": "Czy to zdanie jest prawdziwe?",
+      "zadania": [
+        {
+          "kind": "pf",
+          "e": "Człowiek jest organizmem.",
+          "a": true,
+          "exp": [
+            "Ludzie należą do organizmów, tak jak zwierzęta i rośliny.",
+            "Częsty błąd: myślenie, że organizmy to tylko zwierzęta i rośliny"
+          ],
+          "zrodlo": "ramka „W skrócie”, tabela"
+        },
+        {
+          "kind": "pf",
+          "e": "Chmury są organizmami, bo się poruszają.",
+          "a": false,
+          "exp": [
+            "Chmury to nieożywiona część przyrody; przesuwa je coś z zewnątrz.",
+            "Częsty błąd: uznanie każdego ruchu za oznakę życia"
+          ],
+          "zrodlo": "zdjęcie 03, niebieskie pole"
+        },
+        {
+          "kind": "pf",
+          "e": "Mosty i drogi należą do przyrody.",
+          "a": false,
+          "exp": [
+            "Zbudowali je ludzie, więc nie są przyrodą.",
+            "Częsty błąd: zaliczanie do przyrody wszystkiego, co jest na zewnątrz"
+          ],
+          "zrodlo": "zdjęcie 03, pomarańczowe pole"
+        },
+        {
+          "kind": "pf",
+          "e": "Organizmy rosną i się rozwijają.",
+          "a": true,
+          "exp": [
+            "Wzrost i rozwój to czynności życiowe każdego organizmu.",
+            "Częsty błąd: pomylenie organizmów z elementami nieożywionymi"
+          ],
+          "zrodlo": "zdjęcie 03, zielone pole"
+        },
+        {
+          "kind": "pf",
+          "e": "Przyrodę można poznawać tylko w szkole.",
+          "a": false,
+          "exp": [
+            "Przyrodę poznajemy też w domu, w okolicy, w zoo, w parkach narodowych i przez internet.",
+            "Częsty błąd: zapominanie o źródłach wiedzy poza szkołą"
+          ],
+          "zrodlo": "zdjęcie 04; ramka „Ciekawostka”"
+        },
+        {
+          "kind": "pf",
+          "e": "Woda jest nieożywionym elementem przyrody.",
+          "a": true,
+          "exp": [
+            "Woda nie wykonuje czynności życiowych i nie zrobił jej człowiek.",
+            "Częsty błąd: uznanie wody za rzecz stworzoną przez ludzi, bo leci z kranu"
+          ],
+          "zrodlo": "ramka „W skrócie”, tabela"
+        }
+      ]
+    },
+    {
+      "id": "uzupelnij",
+      "tytul": "Uzupełnij",
+      "polecenie": "Wpisz brakujące pojęcie.",
+      "zadania": [
+        {
+          "kind": "wpisz",
+          "e": "Przyrodą nazywamy wszystko wokół nas, czego nie stworzył ___.",
+          "a": "człowiek",
+          "inne": [
+            "ludzie"
+          ],
+          "exp": [
+            "Rzeczy zbudowane przez ludzi nie są przyrodą.",
+            "Częsty błąd: wpisanie „przyroda”, co niczego nie wyjaśnia"
+          ],
+          "zrodlo": "zdjęcie 03, definicja"
+        },
+        {
+          "kind": "wpisz",
+          "e": "Inna nazwa elementów ożywionych to ___.",
+          "a": "organizmy",
+          "inne": [],
+          "exp": [
+            "Elementy ożywione to po prostu organizmy.",
+            "Częsty błąd: wpisanie „zwierzęta”, które są tylko jedną z grup organizmów"
+          ],
+          "zrodlo": "zdjęcie 03, schemat"
+        },
+        {
+          "kind": "wpisz",
+          "e": "Powietrze, woda i skały to ___ elementy przyrody.",
+          "a": "nieożywione",
+          "inne": [],
+          "exp": [
+            "Nie wykonują czynności życiowych.",
+            "Częsty błąd: wpisanie „ożywione”"
+          ],
+          "zrodlo": "ramka „W skrócie”, tabela"
+        },
+        {
+          "kind": "wpisz",
+          "e": "Lekarz leczy ludzi, a ___ wytwarza żywność.",
+          "a": "rolnik",
+          "inne": [],
+          "exp": [
+            "Żywność produkuje rolnik.",
+            "Częsty błąd: wpisanie „leśnik”, który opiekuje się lasem"
+          ],
+          "zrodlo": "zdjęcie 02, zawody"
+        },
+        {
+          "kind": "wpisz",
+          "e": "Ptaka przez lornetkę oglądamy podczas ___ przyrodniczej.",
+          "a": "obserwacji",
+          "inne": [],
+          "exp": [
+            "Uważne przyglądanie się przyrodzie to obserwacja.",
+            "Częsty błąd: wpisanie „doświadczenia”, które polega na samodzielnym sprawdzaniu czegoś"
+          ],
+          "zrodlo": "zdjęcie 04, zdjęcie nr 1"
+        },
+        {
+          "kind": "wpisz",
+          "e": "Mapę, globusy i mikroskopy znajdziesz w szkolnej ___ przyrodniczej.",
+          "a": "pracowni",
+          "inne": [],
+          "exp": [
+            "To sala przygotowana do badania przyrody.",
+            "Częsty błąd: wpisanie „bibliotece”, gdzie nie ma mikroskopów ani hodowli"
+          ],
+          "zrodlo": "zdjęcie 04, tekst i zdjęcie pracowni"
+        },
+        {
+          "kind": "wpisz",
+          "e": "Kamer internetowych z przyrodą szukaj razem z ___.",
+          "a": "dorosłym",
+          "inne": [
+            "osobą dorosłą",
+            "dorosłą osobą"
+          ],
+          "exp": [
+            "Dorosły pomoże wybrać bezpieczne strony.",
+            "Częsty błąd: wpisanie „kolegą”, który może nie znać bezpiecznych stron"
+          ],
+          "zrodlo": "zdjęcie 05, ramka „Ciekawostka”"
+        }
+      ]
+    },
+    {
+      "id": "pytania",
+      "tytul": "Pytania z podręcznika",
+      "polecenie": "Odpowiedz w myślach albo na głos, potem sprawdź.",
+      "zadania": [
+        {
+          "kind": "otwarte",
+          "e": "Co to jest przyroda?",
+          "a": "Przyrodą nazywamy wszystko wokół nas, czego nie wytworzyli ludzie.",
+          "blad": "uznanie za przyrodę tylko roślin albo tylko lasu i zwierząt",
+          "zrodlo": "zdjęcie 03 (definicja pogrubiona), ramka „W skrócie”, punkt 2"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Wymień trzy czynności życiowe organizmów.",
+          "a": "Organizm na przykład oddycha, odżywia się i rośnie (także wydala, rozmnaża się, sam się porusza).",
+          "blad": "przypisanie organizmom cech elementów nieożywionych, czyli że nie rosną i się nie rozmnażają",
+          "zrodlo": "zdjęcie 03, zielone pole schematu"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Do której grupy należą chmury?",
+          "a": "Chmury są nieożywionym elementem przyrody.",
+          "blad": "zaliczenie chmur do organizmów tylko dlatego, że się przesuwają",
+          "zrodlo": "ramka „W skrócie”, tabela"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Podaj dwa elementy stworzone przez człowieka.",
+          "a": "Na przykład budynki i mosty (pasują też drogi, chodniki, słupy, ogrodzenia).",
+          "blad": "podanie skał, które należą do przyrody",
+          "zrodlo": "zdjęcie 03, pomarańczowe pole; tabela w „W skrócie”"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Wymień trzy źródła wiedzy o przyrodzie.",
+          "a": "Na przykład obserwacje przyrodnicze, atlasy i ogrody zoologiczne.",
+          "blad": "wymienienie wyłącznie tekstów drukowanych, choć źródeł jest dużo więcej",
+          "zrodlo": "ramka „W skrócie”, ostatni punkt; zdjęcie 04"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Na jakie dwie grupy dzielimy wszystko, co nas otacza?",
+          "a": "Na przyrodę oraz na rzeczy zrobione przez ludzi.",
+          "blad": "podział na rośliny i zwierzęta, który pomija rzeczy zbudowane przez człowieka",
+          "zrodlo": "zdjęcie 03, schemat"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Jakie dwie części ma przyroda?",
+          "a": "Przyroda składa się z elementów ożywionych, czyli organizmów, oraz z elementów nieożywionych.",
+          "blad": "dopisanie do przyrody rzeczy stworzonych przez ludzi",
+          "zrodlo": "zdjęcie 03, schemat"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Podaj trzy przykłady organizmów.",
+          "a": "Organizmami są na przykład ludzie, rośliny i grzyby (pasują też zwierzęta i bakterie).",
+          "blad": "pominięcie ludzi, choć człowiek też jest organizmem",
+          "zrodlo": "ramka „W skrócie”, tabela"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Czym elementy nieożywione różnią się od organizmów?",
+          "a": "Elementy nieożywione nie wykonują czynności życiowych: nie rosną, nie mają potomstwa i same się nie przemieszczają.",
+          "blad": "twierdzenie, że nieożywione nigdy się nie ruszają, a przecież coś może je popchnąć",
+          "zrodlo": "zdjęcie 03, niebieskie pole"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Podaj dwa powody, dla których warto uczyć się przyrody.",
+          "a": "Na przykład po to, żeby rozumieć świat wokół siebie i dbać o swoje zdrowie (także: chronić okolicę, odkrywać prawa przyrody, przygotować się do zawodu).",
+          "blad": "podanie powodu niezwiązanego z przyrodą, na przykład że to łatwy przedmiot",
+          "zrodlo": "zdjęcia 01–02, blok „Dlaczego warto się uczyć przyrody?”"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Czym zajmuje się oceanograf?",
+          "a": "Oceanograf bada morza i oceany.",
+          "blad": "pomylenie oceanografa z astronautą, który bada kosmos",
+          "zrodlo": "zdjęcie 02, zawody"
+        },
+        {
+          "kind": "otwarte",
+          "e": "Jak można bez wychodzenia z domu obserwować przyrodę w odległych miejscach?",
+          "a": "Przez kamery internetowe, najlepiej wybrane razem z dorosłym.",
+          "blad": "szukanie takich kamer samemu na przypadkowych stronach",
+          "zrodlo": "zdjęcie 05, ramka „Ciekawostka”"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "profile": [
+    {
+      "id": "aniela",
+      "imie": "Aniela",
+      "dopelniacz": "Anieli",
+      "klasa": 4,
+      "znak": "A",
+      "ona": true
+    }
+  ],
+  "zestawy": [
+    {
+      "id": "przyr-dz1-l08-podsumowanie-dzialu",
+      "tytul": "Podsumowanie i sprawdź wiedzę",
+      "opis": "",
+      "dla": [
+        "aniela"
+      ],
+      "termin": null,
+      "dodano": "2026-10-24",
+      "dzial": "I",
+      "dzialTytul": null,
+      "lekcja": null,
+      "typ": "podsumowanie",
+      "strony": "47–52",
+      "ikona": "lisc",
+      "kolor": "mietowy",
+      "bloki": 1,
+      "zadan": 3,
+      "nagrania": 0,
+      "prywatne": null,
+      "sciaga": false
+    },
+    {
+      "id": "przyr-dz1-l01-co-to-jest-przyroda",
+      "tytul": "Co to jest przyroda?",
+      "opis": "Przyroda wokół nas — czym jest i skąd o niej wiedzieć",
+      "dla": [
+        "aniela"
+      ],
+      "termin": null,
+      "dodano": "2026-10-20",
+      "dzial": "I",
+      "dzialTytul": null,
+      "lekcja": 1,
+      "typ": null,
+      "strony": "12–16",
+      "ikona": "lisc",
+      "kolor": "brzoskwinia",
+      "bloki": 5,
+      "zadan": 40,
+      "nagrania": 1,
+      "prywatne": "nagrania/przyr-dz1-l01-co-to-jest-przyroda.mp3",
+      "sciaga": true
+    }
+  ]
+}

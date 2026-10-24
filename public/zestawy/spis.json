@@ -1,0 +1,15 @@
+{
+  "_opis": "Układ podręcznika przyrody Anieli (klasa 4; seria jeszcze nieustalona — patrz lekcje-audio/podreczniki/klasa4_przyroda.md): działy i lekcje ze stronami. Lekcja jest gotowa, gdy jest zestaw z tym samym „dzial” i „lekcja” (albo „typ”: podsumowanie | test). Tytuł działu i tematy lekcji 2–5 są robocze (nie mamy ich stron tytułowych) — popraw, gdy przyjdą zdjęcia.",
+  "dzialy": [
+    { "nr": "I", "tytul": "Poznajemy przyrodę", "lekcje": [
+      { "nr": 1, "temat": "Co to jest przyroda?", "strony": "12–16" },
+      { "nr": 2, "temat": "Skupienie w nauce", "strony": "17–19" },
+      { "nr": 3, "temat": "Rozsądnie z internetem", "strony": "ok. 20–24" },
+      { "nr": 4, "temat": "Zmysły i obserwacja", "strony": "ok. 25–31" },
+      { "nr": 5, "temat": "Doświadczenie przyrodnicze", "strony": "ok. 31–36" },
+      { "nr": 6, "temat": "Obserwuję przyrodę pod mikroskopem", "strony": "37–41" },
+      { "nr": 7, "temat": "Posługuję się kompasem", "strony": "42–46" },
+      { "typ": "podsumowanie", "temat": "Podsumowanie i sprawdź wiedzę", "strony": "47–52" }
+    ] }
+  ]
+}
