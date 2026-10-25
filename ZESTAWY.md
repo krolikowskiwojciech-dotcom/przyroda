@@ -52,6 +52,10 @@ z tym samym `dzial` i `lekcja` (albo `typ`); pozostałe są „wkrótce”. Tema
 - `e` — treść; w `wpisz` luka to `___` (najwyżej jedna). `kolejnosc` — `elementy` w POPRAWNEJ kolejności (aplikacja tasuje).
 - `wpisz` przyjmuje bez wielkich liter, z innym myślnikiem i kropką na końcu; bez ogonków i z jedną literówką (dwiema przy
   długich słowach) też przechodzi, ale z uwagą o pisowni. Inne poprawne formy dopisz do `inne`.
+- Po złej odpowiedzi (`wybor`, `pf`, `wpisz`, a w `otwarte` po „Jeszcze nie”) dziecko musi przepisać poprawną odpowiedź, zanim
+  przejdzie dalej (wielkość liter, spacje i interpunkcja obojętne, polskie litery wymagane; w `otwarte` bez dopisków w nawiasach);
+  `kolejnosc` i `pary` układa jeszcze raz. Gdy odpowiedź ma ponad 6 słów, dopisz `haslo` — krótkie kluczowe słowo do przepisania
+  zamiast całego zdania.
 - `exp` — wyjaśnienie po błędzie (obowiązkowe poza `otwarte`); `zrodlo` — gdzie w książce szukać (pokazywane jako „Zajrzyj do książki”).
 - `obraz` (przy zadaniu) — własny rysunek z `obrazy/`; nigdy zdjęcie strony podręcznika.
 - Wszystko własnymi słowami — repo jest publiczne.
