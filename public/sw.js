@@ -4,7 +4,7 @@
 // - Lekcje (zestawy/*.json): najpierw z sieci, żeby nowe pytania były od razu, ale najwyżej 1,5 s czekania — potem z pamięci.
 // - Pełne nagrania idą z ogarnijmaterial.pl (inna domena — SW ich nie dotyka); na telefonie trzyma je osobna pamięć
 //   „przyroda-nagrania” (js/store.js), której ten plik nie czyści.
-const CACHE = 'przyroda-v3';
+const CACHE = 'przyroda-v4';
 const SHELL = ['./', 'index.html', 'styles.css', 'manifest.webmanifest', 'js/app.js', 'js/dom.js', 'js/gra.js', 'js/sprawdz.js',
   'js/store.js', 'js/dzwieki.js', 'js/przedmiot.js', 'zestawy/indeks.json', 'zestawy/spis.json', 'ikony/ikona-192.png', 'fonts/Jost.ttf', 'fonts/LibreBaskerville.ttf',
   'audio/przycisk.mp3', 'audio/wybor.mp3', 'audio/cofnij.mp3',

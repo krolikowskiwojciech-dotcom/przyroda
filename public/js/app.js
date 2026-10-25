@@ -52,6 +52,7 @@ function naglowek() {
 // ---------- lista lekcji: działy z podręcznika (zestawy/spis.json), w nich lekcje po kolei ----------
 const KOLORY_DZIALOW = ['kolor-brzoskwinia', 'kolor-mietowy', 'kolor-lila', 'kolor-zolty', 'kolor-niebieski', 'kolor-rozowy'];
 const rozwiniete = new Map(); // nr działu → rozwinięty? (na czas otwartej aplikacji)
+let zakladka = 'lekcje'; // zakładka listy: lekcje (działy z podręcznika) | cwiczenia (zestawy spoza działów) — jak w Angielskim
 
 function ekranListy() {
   const p = profilInfo();
@@ -130,8 +131,22 @@ function ekranListy() {
         h('p', {}, `Lekcje ${PRZEDMIOT.dopelniacz} pojawią się, gdy dodamy pierwszy rozdział. Będą tu nagrania do słuchania z książką, ćwiczenia i ściągi.`))
         : h('div', { class: 'tytul-wiersz' }, h('h1', { class: 'tytul serif' }, 'Czego dziś się ', h('em', {}, 'uczymy'), '?')),
       pilne.length ? [h('div', { class: 'sekcja' }, 'Przed kartkówką'), h('div', { class: 'lista-pakietow' }, pilne.map(karta))] : null,
-      dzialy.length ? h('div', { class: 'dzialy' }, dzialy.map(blokDzialu)) : null,
-      inne.length ? [h('div', { class: 'sekcja' }, dzialy.length ? 'Inne zestawy' : 'Lekcje'), h('div', { class: 'lista-pakietow' }, inne.map(karta))] : null));
+      dzialy.length ? zakladki(dzialy.map(blokDzialu), inne.map(karta))
+        : inne.length ? [h('div', { class: 'sekcja' }, 'Lekcje'), h('div', { class: 'lista-pakietow' }, inne.map(karta))] : null));
+}
+
+// zakładki „Lekcje / Ćwiczenia” pod tytułem (wzór: zakładki Angielskiego); wybór pamiętany do zamknięcia aplikacji
+function zakladki(lekcje, cwiczenia) {
+  const tresc = h('div', { class: 'zakladka-tresc' });
+  const pokaz = () => tresc.replaceChildren(zakladka === 'lekcje' ? h('div', { class: 'dzialy' }, lekcje)
+    : cwiczenia.length ? h('div', { class: 'lista-pakietow' }, cwiczenia)
+      : h('p', { class: 'zakladka-pusto maly' }, 'Tu pojawią się ćwiczenia spoza lekcji, na przykład przed kartkówką.'));
+  const przyciski = [['lekcje', 'Lekcje'], ['cwiczenia', 'Ćwiczenia']].map(([id, t]) => h('button', {
+    class: 'zakladka' + (zakladka === id ? ' akt' : ''), type: 'button',
+    onclick: (e) => { zakladka = id; przyciski.forEach((b) => b.classList.remove('akt')); e.currentTarget.classList.add('akt'); pokaz(); },
+  }, t, id === 'cwiczenia' && cwiczenia.length ? h('span', { class: 'zakladka-licznik' }, cwiczenia.length) : null));
+  pokaz();
+  return [h('div', { class: 'zakladki', role: 'tablist' }, przyciski), tresc];
 }
 
 // ---------- lekcja ----------
