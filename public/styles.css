@@ -603,3 +603,12 @@ a.lek-wiersz:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--atra
   --znaki: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 140' fill='none' stroke='white' stroke-opacity='.6' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='150' cy='46' r='22'/%3E%3Cpath d='M166 62l18 18'/%3E%3Cpath d='M104 112c0-20 12-32 34-34 0 22-12 34-32 34z'/%3E%3Cpath d='M104 112l20-20'/%3E%3Cpath d='M176 96c7 9 12 15 12 21a12 12 0 0 1-24 0c0-6 5-12 12-21z' stroke-opacity='.5'/%3E%3C/svg%3E");
 }
 .dzial-obraz:not(:has(img)) { width: auto; height: auto; margin: 0; }
+
+/* wpisywanie prosto w lukę „___” na karcie zadania */
+.wpis-luka { font: inherit; color: inherit; display: inline-block; vertical-align: baseline; min-width: 5ch; max-width: 100%; margin: 0 .15em;
+  padding: 0 .3em; border: 0; border-bottom: 3px solid currentColor; border-radius: 8px 8px 3px 3px; background: rgba(255,255,255,.85);
+  outline: none; text-align: center; box-shadow: inset 0 2px 4px rgba(0,0,0,.08); }
+.wpis-luka:focus { background: #fff; box-shadow: inset 0 2px 4px rgba(0,0,0,.08), 0 0 0 3px rgba(255,255,255,.6); }
+.wpis-luka.ok { background: #DDF4E6; border-bottom-color: #2F9B5A; color: #1E6B3C; }
+.wpis-luka.zle { background: #FBE1E5; border-bottom-color: #D6455D; color: #A32C40; text-decoration: line-through; }
+.wpis-luka:disabled { opacity: 1; -webkit-text-fill-color: currentColor; }

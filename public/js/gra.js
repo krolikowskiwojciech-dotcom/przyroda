@@ -186,13 +186,16 @@ export function uruchom(el, opcje) {
     pf(cz, karta) { return WIDOKI.wybor(cz, karta); },
 
     // pojęcie z klawiatury telefonu (bez autokorekty — ona „poprawia” nazwy i pojęcia)
-    wpisz() {
-      const pole = h('input', { class: 'wpis', type: 'text', autocomplete: 'off', autocorrect: 'off', autocapitalize: 'off', spellcheck: 'false', enterkeyhint: 'done', 'aria-label': 'Twoja odpowiedź', placeholder: 'wpisz tutaj…',
+    // gdy zdanie ma lukę „___”, wpisuje się prosto w nią (na karcie), a nie w okienku pod spodem
+    wpisz(cz, karta) {
+      const luka = karta?.querySelector('.pytanie-panel .luka');
+      const pole = h('input', { class: luka ? 'wpis-luka' : 'wpis', type: 'text', autocomplete: 'off', autocorrect: 'off', autocapitalize: 'off', spellcheck: 'false', enterkeyhint: 'done', 'aria-label': 'Twoja odpowiedź', placeholder: luka ? '' : 'wpisz tutaj…',
         onkeydown: (e) => { if (e.key === 'Enter') { e.preventDefault(); sprawdz(); } },
         oninput: () => { const i = info(); if (i.classList.contains('podpowiedz')) { i.textContent = ''; i.className = 'info'; } } });
+      if (luka) { pole.style.width = `${Math.max(5, Math.min(20, String(cz.a || '').length + 2))}ch`; luka.replaceWith(pole); }
       stan.pole = pole;
       return {
-        stopka: [pole, h('button', { class: 'btn sprawdz szeroki', type: 'button', onpointerdown: wcisnij, onclick: () => sprawdz() }, 'Sprawdź')],
+        stopka: [luka ? null : pole, h('button', { class: 'btn sprawdz szeroki', type: 'button', onpointerdown: wcisnij, onclick: () => sprawdz() }, 'Sprawdź')],
         potem: () => setTimeout(() => pole.focus(), 60),
       };
     },
