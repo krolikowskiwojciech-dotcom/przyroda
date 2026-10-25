@@ -62,6 +62,19 @@ export function pokaz(cz, odp) {
   if (cz.kind === 'pary') return cz.pary.map(([l]) => `${l} – ${odp?.[l] ?? '?'}`).join('; ');
   return String(odp ?? '');
 }
+// przepisywanie po błędzie (Wojtek 2026-10-25): po złej odpowiedzi trzeba przepisać poprawną, żeby przejść dalej.
+// Wielkość liter, spacje i interpunkcja obojętne, polskie litery wymagane. Bardzo długa odpowiedź (ponad 6 słów)
+// wystarczy jako kluczowe hasło, jeśli zadanie ma pole „haslo”. Pary i kolejność poprawia się ułożeniem, nie pisaniem.
+const doPrzepisania = (t) => String(t ?? '').toLowerCase().normalize('NFC').replace(/[\s.,;:!?"„”'«»()[\]…–—‑-]+/g, '');
+export function wzorPrzepisania(cz) {
+  if (cz.kind === 'pary' || cz.kind === 'kolejnosc') return null;
+  const pelna = cz.kind === 'otwarte' ? String(cz.a).replace(/\s*\([^)]*\)/g, '').trim() : String(dobraOdpowiedz(cz));
+  const inne = [...(cz.kind === 'wpisz' ? cz.inne || [] : []), ...(cz.kind === 'otwarte' ? [cz.a] : [])];
+  if (cz.haslo && pelna.split(/\s+/).length > 6) return { tekst: cz.haslo, pelna, inne: [pelna, ...inne] };
+  return { tekst: pelna, pelna, inne };
+}
+export const przepisanePoprawnie = (wzor, wpis) => !!doPrzepisania(wpis) && [wzor.tekst, ...wzor.inne].some((x) => doPrzepisania(x) === doPrzepisania(wpis));
+
 export function poprawna(cz) {
   if (cz.kind === 'kolejnosc') return cz.elementy.join(' → ');
   if (cz.kind === 'pary') return cz.pary.map(([l, p]) => `${l} – ${p}`).join('; ');
