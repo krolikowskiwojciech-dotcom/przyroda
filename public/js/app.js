@@ -155,9 +155,10 @@ async function ekranZestawu(id) {
           h('span', {}, h('b', {}, zadan), ' ', odm(zadan, 'pytanie', 'pytania', 'pytań')),
           ostatnia ? h('span', {}, 'ostatnio ', h('b', {}, `${ostatnia.dobrze}/${ostatnia.ile}`)) : null,
           ile > 1 ? h('span', {}, h('b', {}, ile), ' prób') : null)),
-      h('div', { class: 'sekcja' }, 'Posłuchaj'),
+      // kartkówka ze zdjęcia nie ma nagrania — sekcję „Posłuchaj” pokazujemy tylko przy lekcjach
+      z.nagrania?.length || z.zrodlo === 'lekcje-audio' ? h('div', { class: 'sekcja' }, 'Posłuchaj') : null,
       z.nagrania?.length ? h('div', { class: 'nagrania' }, z.nagrania.map((n) => odtwarzaczNagrania(z, n)))
-        : h('p', { class: 'nagr-brak maly' }, 'Nagranie tej lekcji jeszcze się przygotowuje. Ćwiczenia są już gotowe.'),
+        : z.zrodlo === 'lekcje-audio' ? h('p', { class: 'nagr-brak maly' }, 'Nagranie tej lekcji jeszcze się przygotowuje. Ćwiczenia są już gotowe.') : null,
       h('div', { class: 'sekcja' }, 'Poćwicz'),
       h('button', { class: 'cta', type: 'button', onclick: () => graj1(z.bloki) },
         h('span', { class: 'cta-txt' }, h('b', {}, 'Zaczynam całą lekcję'), h('small', {}, 'blok po bloku, z wyjaśnieniami')),
