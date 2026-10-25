@@ -66,7 +66,12 @@ const IKONY = {
 export const ik = (nazwa, klasa = '') => h('span', { class: `ik ik-${nazwa} ${klasa}`, html: IKONY[nazwa] || IKONY.ksiazka });
 export const IKONY_PRZEDMIOTU = PRZEDMIOT.ikony;
 
-// ilustracje (gdy kiedyś dojdą, w stylu atlasu/podręcznika — nie dla maluchów); na razie aplikacja ich nie używa
+// ilustracje w stylu atlasu/podręcznika — nie dla maluchów (obrazy/ilustracje/, cięte z arkuszy ChatGPT — narzedzia/prompty.json);
+// brak pliku = zostaje sam numer (onerror usuwa obrazek)
+const ARABSKIE = { I: 1, II: 2, III: 3, IV: 4, V: 5, VI: 6, VII: 7, VIII: 8 };
+export const obrazDzialu = (nr) => (ARABSKIE[nr] ? `obrazy/ilustracje/dzial-${ARABSKIE[nr]}.webp` : null);
+export const obrazLekcji = (dzial, lekcja, typ) => (!ARABSKIE[dzial] ? null : typ ? `obrazy/ilustracje/dz${ARABSKIE[dzial]}-${typ}.webp`
+  : lekcja ? `obrazy/ilustracje/dz${ARABSKIE[dzial]}-l${lekcja}.webp` : null);
 export const ilustracja = (src, klasa = '') => (src ? h('img', { class: 'ilustr ' + klasa, src, alt: '', loading: 'lazy', decoding: 'async', onerror: (e) => e.target.remove() }) : null);
 
 // górny pasek każdego ekranu: po lewej zawsze wyraźna pigułka powrotu (strzałka + słowo), po prawej opcjonalne przyciski.

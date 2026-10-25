@@ -3,7 +3,7 @@
 // Adresy: #/ (start), #/z/<id> (lekcja), #/z/<id>/sciaga, #/ustawienia.
 // Osobę wybiera strona główna https://ogarnijmaterial.pl (PIN); tu tylko sprawdzamy, kto jest zalogowany (S.kto()).
 
-import { h, okno, odm, ik, kolor, IKONY_PRZEDMIOTU, pasekGory, znaczekOsoby } from './dom.js';
+import { h, okno, odm, ik, kolor, IKONY_PRZEDMIOTU, pasekGory, znaczekOsoby, ilustracja, obrazDzialu, obrazLekcji } from './dom.js';
 import { uruchom } from './gra.js';
 import * as S from './store.js';
 import { graj, przygotujDzwieki } from './dzwieki.js';
@@ -83,9 +83,10 @@ function ekranListy() {
         ostatnia ? h('span', { class: 'poz-status zna' }, `ostatnio ${ostatnia.dobrze}/${ostatnia.ile}` + (ile > 1 ? ` · ${ile}×` : '')) : null));
   };
 
+  let dzialTeraz = null; // wiersz lekcji potrzebuje numeru działu do ścieżki ilustracji
   const wiersz = (l) => {
     const z = l.z;
-    const nrEl = h('span', { class: 'lek-miniatura' },
+    const nrEl = h('span', { class: 'lek-miniatura' }, ilustracja(obrazLekcji(dzialTeraz, l.nr, l.typ), 'lek-obraz'),
       l.typ ? h('span', { class: 'lek-nr ikona' }, ik(l.typ === 'test' ? 'ptaszek' : 'sciaga')) : h('span', { class: 'lek-nr serif' }, l.nr));
     if (!z) {
       return h('div', { class: 'lek-wiersz wkrotce' }, nrEl,
@@ -103,11 +104,12 @@ function ekranListy() {
   };
 
   const blokDzialu = (d) => {
+    dzialTeraz = d.nr;
     if (!rozwiniete.has(d.nr)) rozwiniete.set(d.nr, d.gotowe > 0);
     const sek = h('section', { class: `dzial ${d.kolor}` + (rozwiniete.get(d.nr) ? ' otwarty' : '') });
     const gora = h('button', { class: 'dzial-gora', type: 'button', 'aria-expanded': String(rozwiniete.get(d.nr)),
       onclick: () => { const o = !rozwiniete.get(d.nr); rozwiniete.set(d.nr, o); sek.classList.toggle('otwarty', o); gora.setAttribute('aria-expanded', String(o)); } },
-      h('span', { class: 'dzial-obraz' }, h('span', { class: 'dzial-nr serif' }, d.nr)),
+      h('span', { class: 'dzial-obraz' }, ilustracja(obrazDzialu(d.nr)), h('span', { class: 'dzial-nr serif' }, d.nr)),
       h('span', { class: 'dzial-txt' },
         h('small', {}, `Dział ${d.nr}`),
         h('b', { class: 'serif' }, d.tytul || `Dział ${d.nr}`),
@@ -145,7 +147,7 @@ async function ekranZestawu(id) {
     h('main', { class: 'ekran' },
       pasekGory({ tekst: 'Wróć', href: '#/' }),
       h('section', { class: `naglowek-dzialu ${kolorZestawu(z, nr)}` },
-        babel(ikonaZestawu(z, nr), 'kp-emoji nagl-znak'),
+        obrazLekcji(z.dzial, z.lekcja, z.typ) ? ilustracja(obrazLekcji(z.dzial, z.lekcja, z.typ), 'nagl-obraz') : babel(ikonaZestawu(z, nr), 'kp-emoji nagl-znak'),
         h('span', { class: 'kat-etykieta' }, z.termin && dni >= 0 ? etykietaTerminu(dni, z.termin)
           : [z.dzial ? `Dział ${z.dzial}` : 'Zestaw', z.typ === 'podsumowanie' ? ' · podsumowanie' : z.typ === 'test' ? ' · test' : z.lekcja ? ` · lekcja ${z.lekcja}` : '', z.strony ? ` · s. ${z.strony}` : ''].join('')),
         h('h1', { class: 'serif' }, z.tytul),
