@@ -113,6 +113,7 @@ em, i { font-style: normal; }
 .poz-status.uczy { background: var(--zolty); color: var(--tusz); }
 .poz-status.zna { background: rgba(255,255,255,.7); color: var(--tusz); }
 .poz-status.opan { background: var(--zielony); color: #fff; }
+.poz-status .ik { display: inline-flex; vertical-align: -2px; } .poz-status .ik svg { width: 12px; height: 12px; stroke-width: 3; }
 .bledy .pozycja { border-left: 3px solid var(--zle); }
 .bledy small { display: block; margin-top: 2px; }
 .bledy .dobra { color: var(--ok); font-weight: 500; }

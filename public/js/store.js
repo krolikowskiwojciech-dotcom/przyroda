@@ -53,6 +53,13 @@ export function wynikiZestawu(id, zestaw) {
   return { ostatnia: lista[lista.length - 1] || null, ile: lista.length };
 }
 
+// ostatni wynik każdego bloku z dowolnej próby (cała lekcja albo sam blok; bez powtórek pomyłek): Map id bloku → { dobrze, ile }
+export function wynikiBlokow(id, zestaw) {
+  const m = new Map();
+  for (const p of proby(id)) if (p.zestaw === zestaw && !p.powtorka) for (const b of p.bloki || []) m.set(b.id, b);
+  return m;
+}
+
 function scal(a = [], b = []) {
   const m = new Map();
   for (const p of [...a, ...b]) m.set(p.id, p);

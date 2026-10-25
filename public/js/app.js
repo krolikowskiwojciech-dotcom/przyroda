@@ -81,7 +81,8 @@ function ekranListy() {
           h('div', { class: 'kp-tytul serif' }, z.tytul))),
       h('div', { class: 'kp-dol' },
         h('span', { class: 'kp-ikony' }, h('span', { class: 'kp-ikona' }, ik('ptaszek'), `${z.zadan} ${odm(z.zadan, 'pytanie', 'pytania', 'pytań')}`)),
-        ostatnia ? h('span', { class: 'poz-status zna' }, `ostatnio ${ostatnia.dobrze}/${ostatnia.ile}` + (ile > 1 ? ` · ${ile}×` : '')) : null));
+        ostatnia ? h('span', { class: 'poz-status zna' }, `ostatnio ${ostatnia.dobrze}/${ostatnia.ile}` + (ile > 1 ? ` · ${ile}×` : ''))
+          : postepBlokow(p.id, z)));
   };
 
   let dzialTeraz = null; // wiersz lekcji potrzebuje numeru działu do ścieżki ilustracji
@@ -101,7 +102,7 @@ function ekranListy() {
           z.nagrania ? h('span', { class: 'kp-ikona' }, ik('sluchawki'), z.nagrania) : null,
           h('span', { class: 'kp-ikona' }, ik('ptaszek'), z.zadan),
           z.sciaga ? h('span', { class: 'kp-ikona' }, ik('sciaga')) : null)),
-      ostatnia ? h('span', { class: 'poz-status zna' }, `${ostatnia.dobrze}/${ostatnia.ile}`) : h('span', { class: 'lek-strzalka' }, ik('dalej')));
+      ostatnia ? h('span', { class: 'poz-status zna' }, `${ostatnia.dobrze}/${ostatnia.ile}`) : postepBlokow(p.id, z) || h('span', { class: 'lek-strzalka' }, ik('dalej')));
   };
 
   const blokDzialu = (d) => {
@@ -149,12 +150,19 @@ function zakladki(lekcje, cwiczenia) {
   return [h('div', { class: 'zakladki', role: 'tablist' }, przyciski), tresc];
 }
 
+// postęp lekcji bez pełnej próby: „2 z 4 bloków” (null, gdy nic nie zaczęte)
+function postepBlokow(osoba, z) {
+  const zrobione = S.wynikiBlokow(osoba, z.id).size;
+  return zrobione ? h('span', { class: 'poz-status uczy' }, `${Math.min(zrobione, z.bloki)} z ${z.bloki} ${odm(z.bloki, 'bloku', 'bloków', 'bloków')}`) : null;
+}
+
 // ---------- lekcja ----------
 async function ekranZestawu(id) {
   const z = await wczytajZestaw(id);
   const p = profilInfo();
   const nr = Math.max(0, kolejnoscKart().findIndex((x) => x.id === z.id));
   const { ostatnia, ile } = S.wynikiZestawu(p.id, z.id);
+  const wynikiBlokow = S.wynikiBlokow(p.id, z.id);
   const graj1 = (bloki, extra = {}) => startGry(z, bloki, extra);
   const dni = z.termin ? dniDo(z.termin) : null;
   const zadan = z.bloki.reduce((n, b) => n + (b.ile || b.zadania?.length || 0), 0);
@@ -182,10 +190,15 @@ async function ekranZestawu(id) {
         h('span', { class: 'cta-strzalka' }, ik('dalej'))),
       h('ul', { class: 'lista-pozycji' }, z.bloki.map((b, i) => {
         const n = b.ile || b.zadania?.length;
-        return h('li', { class: 'pozycja klik', onclick: () => graj1([b], { tylkoBlok: b.id }) },
+        // zrobiony blok: ostatni wynik (zielony, gdy cały bez błędu); niedokończony — ile pytań było
+        const w = wynikiBlokow.get(b.id);
+        const status = !w ? h('span', { class: 'poz-status' }, 'ćwicz')
+          : w.ile >= n && w.dobrze === w.ile ? h('span', { class: 'poz-status opan' }, ik('ptaszek'), ` ${w.dobrze}/${w.ile}`)
+            : h('span', { class: 'poz-status' + (w.ile >= n ? ' uczy' : '') }, w.ile >= n ? `${w.dobrze}/${w.ile}` : `zaczęte ${w.ile}/${n}`);
+        return h('li', { class: 'pozycja klik' + (w ? ' zrobione' : ''), onclick: () => graj1([b], { tylkoBlok: b.id }) },
           h('span', { class: `blok-nr serif ${kolor(i)}` }, i + 1),
           h('span', { class: 'poz-txt' }, h('b', {}, b.tytul), h('small', { class: 'maly' }, `${n} ${odm(n, 'pytanie', 'pytania', 'pytań')}`)),
-          h('span', { class: 'poz-status' }, 'ćwicz'));
+          status);
       })),
       z.sciaga?.length ? h('a', { class: 'karta-sciagi', href: `#/z/${encodeURIComponent(z.id)}/sciaga` },
         ik('sciaga'), h('span', { class: 'poz-txt' }, h('b', {}, 'Ściąga z lekcji'), h('small', { class: 'maly' }, `${z.sciaga.length} punktów${z.definicje ? ` · ${Object.keys(z.definicje).length} pojęć` : ''}`)), ik('dalej')) : null));
