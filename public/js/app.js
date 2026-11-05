@@ -36,7 +36,7 @@ const dniDo = (iso) => Math.round((new Date(iso + 'T12:00:00') - new Date(new Da
 const ikonaZestawu = (z, i) => z.ikona || IKONY_PRZEDMIOTU[i % IKONY_PRZEDMIOTU.length];
 const kolorZestawu = (z, i) => (z.kolor ? 'kolor-' + z.kolor : kolor(i));
 const babel = (nazwa, klasa = 'kp-emoji') => h('span', { class: klasa + ' babel-bio', 'aria-hidden': 'true' }, ik(nazwa));
-const etykietaTerminu = (dni, iso) => (dni === 0 ? 'kartkówka dziś!' : dni === 1 ? 'kartkówka jutro' : `kartkówka ${dataPL(iso)}`);
+const etykietaTerminu = (dni, iso, rodzaj) => { const co = rodzaj === 'sprawdzian' ? 'sprawdzian' : 'kartkówka'; return dni === 0 ? `${co} dziś!` : dni === 1 ? `${co} jutro` : `${co} ${dataPL(iso)}`; };
 
 // „Przedmioty” po lewej, ustawienia i znaczek osoby po prawej, pod spodem nazwa przedmiotu
 function naglowek() {
@@ -52,12 +52,15 @@ function naglowek() {
 // ---------- lista lekcji: działy z podręcznika (zestawy/spis.json), w nich lekcje po kolei ----------
 const KOLORY_DZIALOW = ['kolor-brzoskwinia', 'kolor-mietowy', 'kolor-lila', 'kolor-zolty', 'kolor-niebieski', 'kolor-rozowy'];
 const rozwiniete = new Map(); // nr działu → rozwinięty? (na czas otwartej aplikacji)
-let zakladka = 'lekcje'; // zakładka listy: lekcje (działy z podręcznika) | cwiczenia (zestawy spoza działów) — jak w Angielskim
+let zakladka = 'lekcje';
+let zakladkaWybrana = false; // dziecko samo kliknęło zakładkę — nie przestawiamy jej już automatycznie // zakładka listy: lekcje (działy z podręcznika) | cwiczenia (zestawy spoza działów) — jak w Angielskim
 
 function ekranListy() {
   const p = profilInfo();
   const moje = indeks.zestawy.filter((z) => z.dla.includes(p.id));
-  const pilne = moje.filter((z) => z.termin && dniDo(z.termin) >= 0).sort((a, b) => a.termin.localeCompare(b.termin));
+  // sprawdziany (rodzaj „sprawdzian”, np. „co zrobił każdy król”) mają własną zakładkę; „Przed kartkówką” tylko kartkówki
+  const sprawdziany = moje.filter((z) => z.rodzaj === 'sprawdzian').sort((a, b) => String(b.termin).localeCompare(String(a.termin)));
+  const pilne = moje.filter((z) => z.rodzaj !== 'sprawdzian' && z.termin && dniDo(z.termin) >= 0).sort((a, b) => a.termin.localeCompare(b.termin));
   const wSpisie = new Set();
   const dzialy = (spis?.dzialy || []).map((d, i) => {
     const pozycje = d.lekcje.map((l) => {
@@ -67,7 +70,9 @@ function ekranListy() {
     });
     return { ...d, pozycje, kolor: KOLORY_DZIALOW[i % KOLORY_DZIALOW.length], gotowe: pozycje.filter((x) => x.z).length };
   });
-  const inne = moje.filter((z) => !wSpisie.has(z.id) && !pilne.includes(z));
+  const inne = moje.filter((z) => !wSpisie.has(z.id) && !pilne.includes(z) && z.rodzaj !== 'sprawdzian');
+  // blisko sprawdzianu (do 2 dni) lista otwiera się od razu na zakładce „Sprawdziany”
+  if (!zakladkaWybrana && sprawdziany.some((z) => z.termin && dniDo(z.termin) >= 0 && dniDo(z.termin) <= 2)) zakladka = 'sprawdziany';
 
   let nr = 0;
   const karta = (z) => {
@@ -77,7 +82,7 @@ function ekranListy() {
     return h('a', { class: `karta-pakietu ${kolorZestawu(z, i)}`, href: '#/z/' + encodeURIComponent(z.id) },
       h('div', { class: 'kp-gora' }, babel(ikonaZestawu(z, i)),
         h('div', { class: 'kp-txt' },
-          z.termin && dni >= 0 ? h('span', { class: 'termin' + (dni <= 1 ? ' pilne' : '') }, etykietaTerminu(dni, z.termin)) : null,
+          z.termin && dni >= 0 ? h('span', { class: 'termin' + (dni <= 1 ? ' pilne' : '') }, etykietaTerminu(dni, z.termin, z.rodzaj)) : null,
           h('div', { class: 'kp-tytul serif' }, z.tytul))),
       h('div', { class: 'kp-dol' },
         h('span', { class: 'kp-ikony' }, h('span', { class: 'kp-ikona' }, ik('ptaszek'), `${z.zadan} ${odm(z.zadan, 'pytanie', 'pytania', 'pytań')}`)),
@@ -132,20 +137,24 @@ function ekranListy() {
         h('p', {}, `Lekcje ${PRZEDMIOT.dopelniacz} pojawią się, gdy dodamy pierwszy rozdział. Będą tu nagrania do słuchania z książką, ćwiczenia i ściągi.`))
         : h('div', { class: 'tytul-wiersz' }, h('h1', { class: 'tytul serif' }, 'Czego dziś się ', h('em', {}, 'uczymy'), '?')),
       pilne.length ? [h('div', { class: 'sekcja' }, 'Przed kartkówką'), h('div', { class: 'lista-pakietow' }, pilne.map(karta))] : null,
-      dzialy.length ? zakladki(dzialy.map(blokDzialu), inne.map(karta))
+      dzialy.length ? zakladki(dzialy.map(blokDzialu), inne.map(karta), sprawdziany.map(karta))
         : inne.length ? [h('div', { class: 'sekcja' }, 'Lekcje'), h('div', { class: 'lista-pakietow' }, inne.map(karta))] : null));
 }
 
 // zakładki „Lekcje / Ćwiczenia” pod tytułem (wzór: zakładki Angielskiego); wybór pamiętany do zamknięcia aplikacji
-function zakladki(lekcje, cwiczenia) {
+function zakladki(lekcje, cwiczenia, sprawdziany = []) {
   const tresc = h('div', { class: 'zakladka-tresc' });
+  if (zakladka === 'sprawdziany' && !sprawdziany.length) zakladka = 'lekcje';
+  const lista = (karty, pusto) => (karty.length ? h('div', { class: 'lista-pakietow' }, karty) : h('p', { class: 'zakladka-pusto maly' }, pusto));
   const pokaz = () => tresc.replaceChildren(zakladka === 'lekcje' ? h('div', { class: 'dzialy' }, lekcje)
-    : cwiczenia.length ? h('div', { class: 'lista-pakietow' }, cwiczenia)
-      : h('p', { class: 'zakladka-pusto maly' }, 'Tu pojawią się ćwiczenia spoza lekcji, na przykład przed kartkówką.'));
-  const przyciski = [['lekcje', 'Lekcje'], ['cwiczenia', 'Ćwiczenia']].map(([id, t]) => h('button', {
+    : zakladka === 'sprawdziany' ? lista(sprawdziany, '')
+      : lista(cwiczenia, 'Tu pojawią się ćwiczenia spoza lekcji, na przykład przed kartkówką.'));
+  // „Sprawdziany” tylko wtedy, gdy jakiś jest (materiał pod konkretny sprawdzian, niezależny od lekcji z książki)
+  const lista3 = [['lekcje', 'Lekcje', 0], ['cwiczenia', 'Ćwiczenia', cwiczenia.length], ...(sprawdziany.length ? [['sprawdziany', 'Sprawdziany', sprawdziany.length]] : [])];
+  const przyciski = lista3.map(([id, t, ile]) => h('button', {
     class: 'zakladka' + (zakladka === id ? ' akt' : ''), type: 'button',
-    onclick: (e) => { zakladka = id; przyciski.forEach((b) => b.classList.remove('akt')); e.currentTarget.classList.add('akt'); pokaz(); },
-  }, t, id === 'cwiczenia' && cwiczenia.length ? h('span', { class: 'zakladka-licznik' }, cwiczenia.length) : null));
+    onclick: (e) => { zakladka = id; zakladkaWybrana = true; przyciski.forEach((b) => b.classList.remove('akt')); e.currentTarget.classList.add('akt'); pokaz(); },
+  }, t, id !== 'lekcje' && ile ? h('span', { class: 'zakladka-licznik' }, ile) : null));
   pokaz();
   return [h('div', { class: 'zakladki', role: 'tablist' }, przyciski), tresc];
 }
@@ -171,7 +180,7 @@ async function ekranZestawu(id) {
       pasekGory({ tekst: 'Wróć', href: '#/' }),
       h('section', { class: `naglowek-dzialu ${kolorZestawu(z, nr)}` },
         obrazLekcji(z.dzial, z.lekcja, z.typ) ? ilustracja(obrazLekcji(z.dzial, z.lekcja, z.typ), 'nagl-obraz') : babel(ikonaZestawu(z, nr), 'kp-emoji nagl-znak'),
-        h('span', { class: 'kat-etykieta' }, z.termin && dni >= 0 ? etykietaTerminu(dni, z.termin)
+        h('span', { class: 'kat-etykieta' }, z.termin && dni >= 0 ? etykietaTerminu(dni, z.termin, z.rodzaj)
           : [z.dzial ? `Dział ${z.dzial}` : 'Zestaw', z.typ === 'podsumowanie' ? ' · podsumowanie' : z.typ === 'test' ? ' · test' : z.lekcja ? ` · lekcja ${z.lekcja}` : '', z.strony ? ` · s. ${z.strony}` : ''].join('')),
         h('h1', { class: 'serif' }, z.tytul),
         z.opis ? h('p', {}, z.opis) : null,
