@@ -3,7 +3,7 @@
 // Adresy: #/ (start), #/z/<id> (lekcja), #/z/<id>/sciaga, #/ustawienia.
 // Osobę wybiera strona główna https://ogarnijmaterial.pl (PIN); tu tylko sprawdzamy, kto jest zalogowany (S.kto()).
 
-import { h, okno, odm, ik, kolor, IKONY_PRZEDMIOTU, pasekGory, znaczekOsoby, ilustracja, obrazDzialu, obrazLekcji } from './dom.js';
+import { h, okno, odm, ik, kolor, IKONY_PRZEDMIOTU, pasekGory, znaczekOsoby, ilustracja, obrazDzialu, obrazLekcji, ustawIlustracje } from './dom.js';
 import { uruchom } from './gra.js';
 import * as S from './store.js';
 import { graj, przygotujDzwieki } from './dzwieki.js';
@@ -458,7 +458,8 @@ let dostep = null; // true = działa; { ekran } = komunikat zamiast aplikacji
 const odmiana = (id) => (['aniela', 'magda'].includes(id) ? 'zalogowana' : 'zalogowany');
 function ekranInnejOsoby(id) {
   const imie = S.OSOBY[id] || id;
-  const w = S.PROFIL;
+  const wl = Object.values(S.PROFILE);
+  const w = wl.length === 1 ? wl[0] : { klasa: wl.map((x) => x.klasa).join(' i '), dopelniacz: wl.map((x) => x.dopelniacz).join(' i ') };
   app.replaceChildren(
     h('main', { class: 'ekran' },
       pasekGory({ tekst: 'Przedmioty', href: S.STRONA_GLOWNA }, znaczekOsoby(imie, S.ZMIEN_OSOBE)),
@@ -466,7 +467,7 @@ function ekranInnejOsoby(id) {
         h('span', { class: 'kp-emoji babel-bio komunikat-znak', 'aria-hidden': 'true' }, ik(PRZEDMIOT.ikony[0])),
         h('div', { class: 'kat-etykieta' }, `${PRZEDMIOT.nazwa} · klasa ${w.klasa}`),
         h('h1', { class: 'serif' }, `To przedmiot ${w.dopelniacz}`),
-        h('p', {}, `Na tym urządzeniu jest teraz ${odmiana(id)} ${imie}. ${PRZEDMIOT.nazwa} jest przygotowana tylko dla ${w.dopelniacz} — jej lekcje, nagrania i wyniki.`),
+        h('p', {}, `Na tym urządzeniu jest teraz ${odmiana(id)} ${imie}. ${PRZEDMIOT.nazwa} jest przygotowana tylko dla ${w.dopelniacz} — ${wl.length === 1 ? (w.ona ? 'jej' : 'jego') : 'ich'} lekcje, nagrania i wyniki.`),
         h('div', { class: 'przyciski kolumna' },
           h('a', { class: 'btn glowny', href: S.STRONA_GLOWNA }, 'Wróć do przedmiotów'),
           h('a', { class: 'btn jasny', href: S.ZMIEN_OSOBE }, 'Zmień osobę')))));
@@ -505,7 +506,7 @@ async function renderEkran() {
   try {
     if (dostep !== true) return dostep?.ekran?.();
     if (!indeks) await wczytajIndeks();
-    if (!spis) spis = await fetch('zestawy/spis.json', { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : { dzialy: [] })).catch(() => ({ dzialy: [] }));
+    if (!spis) spis = await fetch('zestawy/' + (S.PROFIL.spis || 'spis.json'), { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : { dzialy: [] })).catch(() => ({ dzialy: [] }));
     const hash = location.hash || '#/';
     if (biezacaGra && !hash.startsWith('#/gra')) { biezacaGra.zakoncz(); biezacaGra = null; }
     const sc = hash.match(/^#\/z\/(.+)\/sciaga$/);
@@ -535,7 +536,7 @@ window.addEventListener('hashchange', render);
 async function start() {
   const k = await S.kto();
   if (k.stan === 'brak') { location.replace(S.STRONA_GLOWNA); return; } // nikt nie wybrał osoby → strona główna
-  if (k.id === PRZEDMIOT.konto) dostep = true;
+  if (S.wybierzProfil(k.id)) { dostep = true; ustawIlustracje(S.PROFIL.ilustracje); }
   else if (k.id) dostep = { ekran: () => ekranInnejOsoby(k.id) };
   else dostep = { ekran: ekranBezSieci };
   await render();

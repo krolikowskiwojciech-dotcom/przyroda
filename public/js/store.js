@@ -21,7 +21,10 @@ const LOKALNIE = ['127.0.0.1', 'localhost'].includes(location.hostname);
 const TEST = LOKALNIE ? new URLSearchParams(location.search).get('test-ogarnij') : null; // tylko do renderów na 127.0.0.1
 const API = 'https://ogarnijmaterial.pl/api/gh';
 export const OSOBY = { julian: 'Julek', aniela: 'Aniela', wojtek: 'Wojtek', magda: 'Magda' };
-export const PROFIL = PRZEDMIOT.profil;
+// profile tej aplikacji (konto ogarnijmaterial.pl → profil); bez listy „profile” jeden profil z „profil” + „konto”
+export const PROFILE = PRZEDMIOT.profile || { [PRZEDMIOT.konto]: { ...PRZEDMIOT.profil, spis: 'spis.json', ilustracje: 'obrazy/ilustracje/' } };
+export let PROFIL = PRZEDMIOT.profile?.[PRZEDMIOT.konto] || PROFILE[PRZEDMIOT.konto]; // zmienia się w wybierzProfil()
+export const wybierzProfil = (konto) => { if (PROFILE[konto]) PROFIL = PROFILE[konto]; return !!PROFILE[konto]; };
 
 // kto jest zalogowany na ogarnijmaterial.pl: { stan: 'ok', id } | { stan: 'brak' } (401) | { stan: 'offline', id? }
 export async function kto() {
@@ -172,7 +175,7 @@ export async function sprawdzNagrania(sciezka, wypisz) {
     wypisz('zle', k.stan === 'brak' ? 'Logowanie: nikt nie jest zalogowany na ogarnijmaterial.pl — wejdź tam i wybierz osobę.' : 'Logowanie: brak połączenia z ogarnijmaterial.pl.');
     return;
   }
-  const moje = k.id === PRZEDMIOT.konto;
+  const moje = !!PROFILE[k.id];
   wypisz(moje ? 'ok' : 'zle', `Zalogowano jako ${OSOBY[k.id] || k.id} (ogarnijmaterial.pl)` + (moje ? '' : ` — to nie jest konto ${PROFIL.dopelniacz}.`));
   if (!moje) return;
   if (!sciezka) { wypisz('uwaga', 'Ten przedmiot nie ma jeszcze żadnego pełnego nagrania do sprawdzenia.'); return; }
