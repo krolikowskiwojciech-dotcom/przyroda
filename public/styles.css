@@ -351,6 +351,11 @@ input.wpis.zle { border-color: var(--zle); color: var(--zle); text-decoration: l
 .sciaga { margin: 8px 0 0; padding: 0 0 0 1.5em; font-size: 17px; line-height: 1.5; }
 .sciaga li { margin-bottom: 10px; padding-left: 4px; }
 .sciaga li::marker { color: var(--oliwka); font-weight: 600; }
+.czytanka { background: #fff; border: 1px solid var(--linia); border-radius: 14px; padding: 16px 18px; margin: 14px 0; }
+.czytanka h2 { font-size: 21px; margin: 0 0 2px; }
+.czytanka-lata { font-size: 14px; color: var(--szary); margin-bottom: 8px; }
+.czytanka p { font-size: 17px; line-height: 1.6; margin: 0 0 10px; }
+.czytanka-zapamietaj { background: var(--akcent); border-radius: 10px; padding: 10px 12px; margin: 12px 0 0 !important; }
 .sciaga-obraz { margin: 6px 0 18px -1.5em; background: #fff; border-radius: 18px; padding: 10px; border: 1px solid var(--linia); }
 .sciaga-obraz img { display: block; width: 100%; height: auto; border-radius: 10px; }
 .sciaga-obraz figcaption { font-size: 14px; color: var(--szary); margin-top: 8px; }

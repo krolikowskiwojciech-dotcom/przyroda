@@ -209,6 +209,8 @@ async function ekranZestawu(id) {
           h('span', { class: 'poz-txt' }, h('b', {}, b.tytul), h('small', { class: 'maly' }, `${n} ${odm(n, 'pytanie', 'pytania', 'pytań')}`)),
           status);
       })),
+      z.teksty?.length ? h('a', { class: 'karta-sciagi', href: `#/z/${encodeURIComponent(z.id)}/teksty` },
+        ik('sciaga'), h('span', { class: 'poz-txt' }, h('b', {}, 'Teksty do czytania'), h('small', { class: 'maly' }, `${z.teksty.length} ${odm(z.teksty.length, 'tekst', 'teksty', 'tekstów')}`)), ik('dalej')) : null,
       z.sciaga?.length ? h('a', { class: 'karta-sciagi', href: `#/z/${encodeURIComponent(z.id)}/sciaga` },
         ik('sciaga'), h('span', { class: 'poz-txt' }, h('b', {}, 'Ściąga z lekcji'), h('small', { class: 'maly' }, `${z.sciaga.length} punktów${z.definicje ? ` · ${Object.keys(z.definicje).length} pojęć` : ''}`)), ik('dalej')) : null));
 }
@@ -395,6 +397,23 @@ async function ekranSciagi(id) {
         h('dl', { class: 'pojecia' }, Object.entries(z.definicje).map(([k, v]) => [h('dt', { class: 'serif' }, k), h('dd', {}, v)]))] : null));
 }
 
+// ---------- teksty do czytania ----------
+async function ekranTekstow(id) {
+  const z = await wczytajZestaw(id);
+  const nr = Math.max(0, kolejnoscKart().findIndex((x) => x.id === z.id));
+  app.replaceChildren(
+    h('main', { class: 'ekran' },
+      pasekGory({ tekst: 'Wróć', href: '#/z/' + encodeURIComponent(z.id) }),
+      h('section', { class: `naglowek-dzialu niski ${kolorZestawu(z, nr)}` },
+        h('span', { class: 'kat-etykieta' }, 'Do czytania'),
+        h('h1', { class: 'serif' }, z.tytul)),
+      (z.teksty || []).map((t) => h('article', { class: 'czytanka' },
+        h('h2', { class: 'serif' }, t.tytul),
+        t.lata ? h('div', { class: 'czytanka-lata' }, t.lata) : null,
+        (t.akapity || []).map((a) => h('p', {}, a)),
+        t.zapamietaj ? h('p', { class: 'czytanka-zapamietaj' }, h('b', {}, 'Zapamiętaj: '), t.zapamietaj) : null))));
+}
+
 function startGry(zestaw, bloki, extra = {}) {
   if (biezacyKlucz) { zapamietajMiejsce(); pominZapis = true; biezacyKlucz = null; }
   biezacaGra?.zakoncz();
@@ -518,6 +537,8 @@ async function renderEkran() {
     if (!spis) spis = await fetch('zestawy/' + (S.PROFIL.spis || 'spis.json'), { cache: 'no-cache' }).then((r) => (r.ok ? r.json() : { dzialy: [] })).catch(() => ({ dzialy: [] }));
     const hash = location.hash || '#/';
     if (biezacaGra && !hash.startsWith('#/gra')) { biezacaGra.zakoncz(); biezacaGra = null; }
+    const tk = hash.match(/^#\/z\/(.+)\/teksty$/);
+    if (tk) { zatrzymajOdtwarzacz(); window.scrollTo(0, 0); return await ekranTekstow(decodeURIComponent(tk[1])); }
     const sc = hash.match(/^#\/z\/(.+)\/sciaga$/);
     if (sc) { zatrzymajOdtwarzacz(); window.scrollTo(0, 0); return await ekranSciagi(decodeURIComponent(sc[1])); }
     const m = hash.match(/^#\/z\/(.+)$/);
